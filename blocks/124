@@ -1,0 +1,5 @@
+: -%emit 126 emit 2h.. ; 
+: %emit dup $20 <if -%emit ; then dup 125 >if -%emit ; then emit ; 
+: %type swap b>a ?for b+@ %emit ?next ; 
+: c%type dup count %type ; 
+: ... $2e2e2e emit3 ; 

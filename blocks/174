@@ -1,0 +1,18 @@
+172 load 
+: slow 40000 for 0 drop next ; 
+: blue-plot x,y->addr 3 + b! ; 
+: red-plot x,y->addr 1+ b! ; 
+: ana-set-y ana-y @ ey - focal-length * ana-z @ / ey + ana-y ! ; 
+: ana-get-lx ana-x @ lex - focal-length * ana-z @ / lex + ; 
+: ana-get-rx ana-x @ rex - focal-length * ana-z @ / rex + ; 
+: ana-plot focal-length + ana-z ! ana-y ! ana-x ! dup ana-set-y ana-get-lx ana-y @ red-plot ana-get-rx ana-y @ blue-plot ; 
+: mist-erase 0 +@ +@ +@ ana-plot ; 
+: mist-plot -1 +@ +@ +@ ana-plot ; 
+: mist-new-v dup @ 3 random 1- + dup 7 / - swap ! ; 
+: mist-new-x mist-vx mist-new-v mist-vx @ + dup 0 <if drop 0 5 mist-vx ! ; then dup screen-width <; drop screen-width 1- -5 mist-vx ! ; 
+: mist-new-y mist-vy mist-new-v mist-vy @ + dup 0 <if drop 0 5 mist-vy ! ; then dup screen-height <; drop screen-height 1- -5 mist-vy ! ; 
+: mist-new-z mist-vz mist-new-v mist-vz @ + dup 0 <if drop 0 5 mist-vz ! ; then dup ana-max-depth <; drop ana-max-depth -5 mist-vz ! ; 
+: ?mist-lap a mist-t-end <; mist-t w>a ; 
+: mist-new >r >r mist-new-x dup +! r> mist-new-y dup +! r> mist-new-z dup +! ; 
+: -mist ?mist-lap mist-erase -12 a+ mist-new -12 a+ mist-plot slow -mist ; 
+: mist fb-clear mist-t w>a screen-w/2 screen-h/2 0 -mist ; 

@@ -1,0 +1,4 @@
+here $77726974 w, $65000000 w, ' write-str 
+here $72656164 w, 0 w, ' read-str 
+here $65786974 w, 0 w, ' exit-str 
+

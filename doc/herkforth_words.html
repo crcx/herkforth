@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>herkforth words</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:37 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_words">http://herkamire.com/jason/herkforth_words</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>herkforth words</h2>
+
+<p><a href="herkforth.html">herkforth</a> has a lot of the same core words as other <a href="forth.html">forth</a>s. If you are
+unfarmilliar with basic forth words, I recommend reading some of the <a href="forth_documentation.html">forth
+documentation</a>.</p>
+
+<p>It's very useful to know the <a href="herkforth_naming_conventions.html">herkforth naming conventions</a>. They make it
+very much easier to read code, and sometimes to find the word you're looking
+for.</p>
+
+<p>Speaking of finding words, check out the search commands in <a href="herkforth_command_keys.html">herkforth command
+keys</a>.</p>
+
+<h2>New words in herkforth</h2>
+
+<p>These words don't (normally) apear in other <a href="forth.html">forth</a>s.</p>
+
+<h3>Flow Control</h3>
+
+<p>See <a href="herkforth_deferred_words.html">herkforth deferred words</a></p>
+
+<p><a href="herkforth.html">herkforth</a> doesn't have normal comparison operators (e.g. &lt; &gt; =) Instead it
+checks conditions as part of the control flow words if:</p>
+
+<p><code>&lt;if &gt;if &lt;&gt;if &lt;=if &gt;=if 0if</code></p>
+
+<p>and ; (exit):</p>
+
+<p><code>0=; &lt;; &gt;; &lt;&gt;; if;</code></p>
+
+<p><code>&lt;;</code> is equivilent to (in ans forths): <code>&lt; if exit then</code></p>
+
+<p>There are two more which are like the above (they exit on a condition) except
+that they only <code>drop</code> if if TOS is zero:</p>
+
+<p><code>0;</code> is like <code>0=;</code> except that it does not drop TOS unless it's zero. So
+it's equivelent to the following ans code: <code>dup 0 = if drop exit then</code></p>
+
+<p><code>?;</code> is like <code>if;</code> except it does not drop TOS unless it's zero, So it is
+equivelent to the following in ans code: <code>dup if exit then drop</code></p>
+
+<h3>Loops</h3>
+
+<p><a href="herkforth.html">herkforth</a> has two types of loops. Counted (for/next) and tail recursion.</p>
+
+<p>Counted loops:</p>
+
+<p><code>: 5stars 5 for $2a emit next ;</code></p>
+
+<p>Note that this differs strongly from the ANS definition which would only print
+4 stars.</p>
+
+<p>Tail recursion: You don't have to do anything fancy to do tail recursion.
+<a href="herkforth.html">herkforth</a> automagically turns the last call into a branch. So you can
+simply:</p>
+
+<p><code>: stars $2a emit 1- 0; stars ;</code></p>
+
+<h3>Memory stores/fetches</h3>
+
+<p>In addition to the normal <code>@</code> and <code>!</code> <a href="herkforth.html">herkforth</a> also has an A (address)
+register. You may have heard of this from <a href="colorforth.html">colorforth</a> and some other forths,
+but here's a quick intro:</p>
+
+<p><code>&gt;a</code> pops TOS into the A register.</p>
+
+<p><code>!a</code> stores TOS to the address in the A register</p>
+
+<p><code>@a</code> fetches from the address in the A register</p>
+
+<p><code>a</code> pushes A onto the stack</p>
+
+<p>The A register is very useful for incrementing stores/fetches.</p>
+
+<p><code>+!</code> increments the address in the A register (by one word) and stores to
+that address.</p>
+
+<p>As PPC has no post-increment or post-decrement stores or fetches, it's usually
+best to decrement the pointer before you use it. Herkforth has these words:
+<code>b&gt;a h&gt;a w&gt;a</code> which push TOS into the A register, and decrement it by 1, 2
+and 4 bytes respectively.</p>
+
+<p>While we're on the subject of stores and fetches, you can add an <code>h</code> to make
+it store/fetch a Half word (two bytes), or a <code>b</code> prefix makes it just one Byte.</p>
+
+<p>Read the <a href="herkforth_naming_conventions.html">herkforth naming conventions</a> for more details.</p>
+
+<h2>Words conspiciously absent from herkforth</h2>
+
+<p><code>else do loop immediate does&gt; variable begin until while word</code></p>
+
+<p>These are missing on purpose, and I intend not to ever add them.</p>
+
+<p><a href="herkforth_immediates.html">herkforth immediates</a> work without the word <code>immediate</code>.</p>
+
+<p><code>else</code> usually just encourages bad factoring, and is NEVER nessesary.</p>
+
+<p><a href="herkforth_variables.html">herkforth variables</a> work without the word <code>variable</code>.</p>
+
+<h3>See Also</h3>
+
+<p><a href="herkforth_naming_conventions.html">herkforth naming conventions</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a></p>
+
+<p><a href="herkforth_core_words.html">herkforth core words</a></p>
+
+<p><a href="herkforth.html">herkforth</a></p>
+
+<p><a href="forth.html">forth</a>
+</p>
+
+
+  </body>
+</html>

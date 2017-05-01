@@ -1,0 +1,8 @@
+variable ' emit-addr 
+here 8 allot-0 ' emt 
+: -emit->mem emit-addr @ dup 1+ emit-addr ! b! ; 
+: emit->mem emit-addr ! ` -emit->mem dict->cfa ] lit is-emit ; 
+: restore-emit ` output-char dict->cfa ] lit is-emit ; 
+: emit-buf-start here emit->mem ; 
+: emit-buf-end restore-emit here emit-addr @ over - ; 
+: emit-buf-flush emit-buf-end emit-fd @ write ; 

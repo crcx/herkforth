@@ -1,0 +1,14 @@
+: sp $20 emit ; [ here 10 w, ' base 
+: ->digit dup 10 <if 48 + ; then 87 + ; 
+: -. dup base @ umod ->digit swap base @ u/ 0; -. ; 
+: --. emit 0; --. ; 
+: u.. 0 swap -. --. ; 
+: .. dup 0 <if $2d emit -1 * then u.. ; 
+: . .. sp ; 
+: u. u.. sp ; 
+: h.. $24 emit 16 base ! u.. 10 base ! ; 
+: h. h.. sp ; 
+: 1. $30 + emit ; 
+: 2h.. dup 16 / ->digit emit 16 umod ->digit emit ; 
+: ../h.. dup hi16 dup $ffff =if drop .. ; then 0if .. ; then h.. ; 
+: ./h. ../h.. sp ; 

@@ -1,0 +1,8 @@
+: data-end dup count + ; 
+: data-at-here? data-end aligned here =if 1 ; then 0 ; 
+: data-move dup >r dict->cfa here 8 + r> dict-cfa! dup 8 - b>a count 8 + for b+@ b, next align ; 
+: ?data-move dup dict->cfa data-at-here? if drop ; then data-move ; 
+: --data-resize swap dict->cfa 4- ! ; 
+: -data-resize over dict->cfa data-at-here? if over dict->cfa count aligned over aligned swap- allot then --data-resize ; 
+: data-resize over dict->cfa count aligned over <if over ?data-move then -data-resize ; 
+: new-string 0 w, 1 w, here 0 w, dict-new dict-cfa! flags-data dict-new dict-flags! color-noop color ! dict-new dict++ ed-new-word ; 

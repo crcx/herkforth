@@ -1,0 +1,5 @@
+Write ELF and run it
+
+This copies the dictionary, source, and data sections into your new ELF image,
+writes it to a file, then moves it down to the address where the ELF is loaded
+by Linux, and starts executing it.

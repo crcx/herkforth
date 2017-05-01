@@ -1,0 +1,8 @@
+: -bs-kernel-cfa dup dict->cfa swap dict->flags flags-word <>; bs-fix-addr ; 
+: bs-kernel-cfa dup >a bs-dict->old @ + -bs-kernel-cfa !a ; 
+: bs-kernel-cfas bs-dict-addr @ num-core-words for dup bs-kernel-cfa 32 + next drop ; 
+: bs-kernel load-core-words bs-kernel-cfas ; 
+: bs-set-offset elf-load-addr bs-addr @ - bs-offset ! ; 
+: bs-set-entry here bs-fix-addr bs-entry @ ! ; 
+: bs-set-size here bs-addr @ - bs-file-size @ ! ; 
+: bootstrap bs-header bs-set-offset bs-src bs-dict bs-data bs-kernel bs-set-size bs-write-file 58 load ; [ bootstrap 

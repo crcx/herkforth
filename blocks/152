@@ -1,0 +1,6 @@
+interpret 28 load 30 load 32 load 34 load 36 load 38 load 60 load 62 load 64 load 66 load 142 load 68 load 
+: key-test key . key-test ; 
+: of-test stdout s-html-header 12 of-write key-test bye ; [ of-test 
+: sqrt-closer 2dup / over - 2 / ; 
+: sqrt-loop sqrt-closer 0; + sqrt-loop ; 
+: sqrt 1 sqrt-loop nip ; 

@@ -1,0 +1,9 @@
+: tos-tos r-tos r-tos ; 
+: load-core-words 50 load 52 load 54 load 196 load ; 
+: load-bootstrap 144 load ; 
+: bs-header 48 load ; 
+: load-term-dimen 122 load ; 
+: load-%enc 124 load ; 
+: load-dict-rec 128 load ; 
+: load-graphics lin/of-graph load 186 load ; 
+: load-sin 184 load ; 

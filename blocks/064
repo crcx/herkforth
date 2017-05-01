@@ -1,0 +1,6 @@
+: cb-addr cur-block @ block ; 
+: cursor-addr cb-addr cursor-pos @ 2 * + ; 
+: cursor-token cursor-addr h@ ; 
+: cb-size cb-addr sb->len ; 
+: cb-size++ cb-addr 1022 + dup h@ 1+ swap h! ; 
+: addr->src dup block-find dup to-hi16 >r block - 2 / r> | ; 

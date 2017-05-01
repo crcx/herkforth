@@ -1,0 +1,16 @@
+: b! [ r0 _2toreg r0 r-tos 0 _stb ] 2drop ; 
+: h! [ r0 _2toreg r0 r-tos 0 _sth ] 2drop ; 
+: ! [ r0 _2toreg r0 r-tos 0 _stw ] 2drop ; 
+: ,@ tos-tos 0 _lwz ; 
+: @ @ ; 
+: ,dict->cfa ,@ ; 
+: dict->cfa dict->cfa ; 
+: ,b@ tos-tos 0 _lbz ; 
+: b@ b@ ; 
+: ,h@ tos-tos 0 _lhz ; 
+: h@ h@ ; 
+: ,here r-here _pushreg ; 
+: here here ; 
+: variable here 0 w, ; 
+: ,here! r-here _popreg ; 
+: here! here! ; 

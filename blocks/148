@@ -1,0 +1,4 @@
+load-term-dimen 
+: write [ 3 r-tos _mr 4 _3toreg 5 _2toreg 0 4 _li ] 3drop [ _sc ] ; 
+: file-close [ r3 r-tos _mr r0 6 _li _sc ] drop ; [ variable ' emit-buf 
+: output-char emit-buf b! emit-buf 1 emit-fd @ write ; 

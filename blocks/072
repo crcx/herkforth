@@ -1,0 +1,15 @@
+: const-sb-max dup dup start-of-block - 2 / 7 min ; 
+: const-sb const-sb-max for 2- dup h@ word-color 2 >if 2+ unloop ; then next ; 
+: ?const-sb dup h@ word-color color-const-def <>; const-sb ; 
+: src-type-max dup start-of-block dup sb->len 2 * + over - 2 / 16 min ; 
+: -src-type-def src-type-max ?for dup h@ dup word-color dup color-const-def =if drop emit-word unloop drop ; then color-define =if drop unloop drop ; then emit-word 2+ ?next drop ; 
+: src-type-def dup h@ emit-word 2+ -src-type-def ; 
+: ed-show-default cursor-dict dict->cfa dup h.. $3a emit sp w>a +@ ./h. +@ ./h. +@ ./h. +@ ./h. ; 
+: ed-show-data cursor-token tok-print-dname sp cursor-dict dict->cfa c%type ; 
+: ed-show-var $7661723a emit4 sp cursor-dict dict->var dup h. . ; 
+: ed-show-num cursor-dict dict->cfa dup h. . ; 
+: ed-show-code cursor-dict dict->def-addr 0; ?const-sb src-type-def ; 
+: ed-show-const ed-show-num cursor-cfa 4 umod if; cursor-cfa elf-load-addr <; cursor-cfa elf-load-addr $100000 + >; sp $403a20 emit3 cursor-cfa @ dup h. . ; 
+: ed-show-def-t [ exe-table-start ] ed-show-code [ flags-word w, ] ed-show-const [ flags-const w, ] ed-show-var [ flags-var w, ] ed-show-num [ flags-number w, ] ed-show-data [ flags-data w, ] ignore-others [ exe-table-end 
+: -ed-show-def cursor-dict dict->flags ed-show-def-t exe-table-go ; 
+: ed-show-def -ed-show-def cr cr ; 

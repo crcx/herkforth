@@ -1,0 +1,9 @@
+entry point
+
+_start is the entry point for the ELF. It initializes the registers, then
+starts compiling the blocks (skipping the bootstrapper of course.)
+
+_start initializes the registers pointing to the dictionary and such which come
+after _start in the memory. therefor we must decide where the end of the code
+section is before compiling _start. and then put those other sections
+(dictionary, data, stacks) exactly where we decided.

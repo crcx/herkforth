@@ -1,0 +1,17 @@
+20 ' as-width 
+20 ' as-height 
+4 ' as-num-ships 
+here as-height as-width * allot ' as-disp-buf 
+here $207c5c2f w, $2b2d3c3e w, $58202020 w, ' as-chars 
+here $02020000 w, $12020000 w, $02120000 w, $12120000 w, ' as-ships 
+here $61652c6f w, $75647969 w, $34363835 w, $686e6374 w, ' as-controls 
+: ,shl8 tos-tos 8 0 23 _rlwinm ; 
+: b++ dup b@ 1+ swap b! ; 
+: b-- dup b@ 1- swap b! ; 
+: key->hex shl8 key | ; 
+: keys->hex 0 key->hex key->hex key->hex key->hex h. ; 
+: string->hex for keys->hex next ; 
+: jump-table 4 * r> + jump ; 
+: zero. 0 . ; 
+: one. 1 . ; 
+: testj 1 jump-table zero. one. [ 2 fix-table 

@@ -1,0 +1,18 @@
+: ,w>b r-b r-tos -4 _addi ,drop ; 
+: w>b w>b ; 
+: ,+@b ,dup r-tos r-b 4 _lwzu ; 
+: +@b +@b ; 
+: a- [ r-a r-tos r-a _subf ] drop ; 
+: a+ [ r-a r-tos r-a _add ] drop ; 
+: ,b--a r-a r-a -1 _addi ; 
+: ,b++a r-a r-a 1 _addi ; 
+: >a [ r-a r-tos _mr ] drop ; 
+: w>a 4- >a ; 
+: h>a 2- >a ; 
+: b>a 1- >a ; 
+: ,a r-a _pushreg ; 
+: a a ; 
+: !a [ r-tos r-a 0 _stw ] drop ; 
+: @a dup [ r-tos r-a 0 _lwz ] ; 
+: ,save-a r-a _rpush ; 
+: ,restore-a r-a _rpop ; 

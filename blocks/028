@@ -1,0 +1,21 @@
+variable ' term-x 
+variable ' term-y 
+variable ' ew-ascii? 
+: term-y++ term-y @ 1+ term-y ! ; 
+: ?term-wrap term-width <=; ew-ascii? @ if; term-y++ term-width - ; 
+: term-x++ term-x @ 1+ dup ?term-wrap term-x ! ; 
+: -emit 
+: is-emit ` -emit dict->cfa ] lit swap -is ; ` output-char dict->cfa is-emit 
+: esc-emit ew-ascii? @ if drop ; then -emit ; 
+: esc-1. 48 + esc-emit ; 
+: esc-..-?100s 100 <; dup 100 / esc-1. ; 
+: esc-..-?10s 10 <; dup 10 / 10 umod esc-1. ; 
+: esc-.. dup esc-..-?100s dup esc-..-?10s 10 umod esc-1. ; 
+: emit -emit term-x++ ; 
+: emit2 dup 3rd-8 emit emit ; 
+: emit3 dup 2nd-8 emit emit2 ; 
+: emit4 dup hi8 emit emit3 ; 
+: type swap b>a for b+@ emit next ; 
+: ,count tos-tos -4 _lwz ; 
+: count count ; 
+: ctype dup count type ; 

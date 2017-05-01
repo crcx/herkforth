@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>herkforth's PPC assembler</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:33 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_assembler">http://herkamire.com/jason/herkforth_assembler</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>herkforth's PPC assembler</h2>
+
+<h3>Syntax</h3>
+
+<p>This assembler does not use the standard syntax. To assemble an instruction you
+put all the parameters on the stack (see Syntax Exceptions below) and call the
+word to assemble it (which is an underscore followed by the mnemonic.)</p>
+
+<p>Example:</p>
+
+<p>To assemble rlwinm equivalent to the following:</p>
+
+<p><code>rlwinm r1, r2, 3, 4, 5</code></p>
+
+<p>You would do:</p>
+
+<p><code>r1 r2 3 4 5 _rlwinm</code></p>
+
+<h3>Adding to the Assembler</h3>
+
+<p>Define a word according to the naming scheme (underscore followed by mnemonic.)</p>
+
+<p>Call <code>opcode</code> (or <code>2opcode</code> if your instruction has a secondary opcode.)
+This gets the assembling started by clearing all bits in the A register, and
+then putting the opcode(s) in. If your instruction has a standard form (such as
+2 five bit fields followed by a 16 bit field) you can just call the appropriate
+word for that form and you're done (<code>_5-5-16</code> in this case.) If there is not
+a word for assembling the form for your instruction, either make it, or use the
+words such as <code>|51 |52 |10</code> etc. to or in the operands.</p>
+
+<p>Here's how I wrote <code>_rlwinm</code>:</p>
+
+<p><code>: _5-5-5-5-5 opcode |55 |54 |53 |51 |52 a, ;</code></p>
+
+<p><code>: _rlwimi 21 _5-5-5-5-5 ;</code></p>
+
+<h3>Word Reference</h3>
+
+<p><code>opcode</code> ( x -- )  call this (first) to shift the opcode up and put it in the
+A register</p>
+
+<p><code>|51</code> ( x -- ) or x into the a register as the 1st 5 bit operand</p>
+
+<p><code>|52</code> ( x -- ) or x into the a register as the 2nd 5 bit operand</p>
+
+<p><code>|10</code> ( x -- ) or x into the a register as the 10 bit field</p>
+
+<p>See blocks/005 for complete reference</p>
+
+<h3>Syntax Exceptions</h3>
+
+<p>This section describes the exceptions to the rule that you put the parameters
+for your instruction on the stack in the same order that they are documented in
+standard PPC assembly documentation.</p>
+
+<p>1) load/store with immediate: these take the immediate on top of the stack. eg:
+_stw _lwz</p>
+
+<p>2) in cmp I've combined the first two operands and the reserved bit. so pass
+the condition register field shifted up two.</p>
+
+<h3>See Also:</h3>
+
+<p><a href="rlwinm.html">rlwinm</a> (PPC instruction &quot;Rotate Left Word Immediate then aNd with Mask&quot;)</p>
+
+<p><a href="how_herkforth_works.html">how herkforth works</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a></p>
+
+<p><a href="herkforth.html">herkforth</a>
+</p>
+
+
+  </body>
+</html>

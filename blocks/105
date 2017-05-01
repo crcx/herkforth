@@ -1,0 +1,4 @@
+Random Number
+
+-random    generate a 32 bit psuedo random number
+random ( n -- 0..n-1 ) give a random number in the range given using the high order bits from -random

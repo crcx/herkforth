@@ -1,0 +1,18 @@
+108 load 
+: ?cg-h-move b+@ if; a cg-buf - dup 1 + swap cg-move ; 
+: cg-h-refill ?cg-h-move ?cg-h-move 1 a+ ; 
+: cg-h-refills cg-buf b>a cg-h-refill cg-h-refill cg-h-refill ; 
+: ?cg-v-move b@a if; a cg-buf - dup 3 + swap cg-move ; 
+: cg-v-refill ?cg-v-move 3 a+ ?cg-v-move ; 
+: cg-v-refills cg-buf >a cg-v-refill -2 a+ cg-v-refill -2 a+ cg-v-refill ; 
+: cg-extras cg-buf 7 + >a ?cg-h-move ?cg-h-move ?cg-h-move ; 
+: cg-refill cg-h-refills cg-v-refills cg-extras ; 
+: cg-not-left? cg-src @ 3 umod ; 
+: cg-dir? cg-src @ cg-dest @ - dup 1 =if drop cg-not-left? ; then 3 =if 1 ; then 0 ; 
+: cg-diff? cg-src @ cg-@ cg-dest @ cg-@ - abs dup 1 =if drop 1 ; then 3 umod 0if 1 ; then 0 ; 
+: cg-src-0? cg-src @ cg-@ 0if 1 ; then 0 ; 
+: -?cg-move cg-diff? 0=; cg-src @ cg-dest @ cg-move cg-refill ; 
+: ?cg-move cg-dir? 0=; cg-src-0? if; -?cg-move ; 
+: turn -1 cg-src ! cg-display cg-in-pos cg-src ! cg-display cg-in-pos cg-dest ! ?cg-move ; 
+: cg-loop turn cg-loop ; 
+: cg-play cg-deal clear-screen cg-loop ; [ cg-play 

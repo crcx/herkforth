@@ -1,0 +1,3 @@
+: fb-clear fb w>a [ screen-width screen-height * ] lit for 0 +! next ; 
+: x,y->addr screen-width * + 4* fb + ; 
+: plot x,y->addr ! ; 

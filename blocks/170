@@ -1,0 +1,4 @@
+screen-width 2 / ' screen-w/2 
+screen-height 2 / ' screen-h/2 
+: mapfb [ 3 fbstr _liw 4 2 _li 0 5 _li _sc 7 3 _mr 3 0 _li 4 5242880 _liw 5 2 _li 6 1 _li 8 0 _li 0 90 _li _sc ] dup [ r-tos 3 _mr ] ; [ mapfb ' fb 
+

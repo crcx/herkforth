@@ -1,0 +1,20 @@
+scratch
+
+Some code I'm experimenting with.
+
+In case you're interested, Here's how you might be able to get the screensaver thing to work:
+
+first create a link to the frame buffer called "fb" in the current directory:
+
+for example:
+
+$ ln -s /dev/fb/0 fb
+
+then change the count in the "loop" word to the number of bytes of pixels you
+have on your screen devided by 4.
+
+Then execute the current block by typing a capital B
+
+
+I was playing around to define tic and defer. they seem to work, but I don't
+really have a use for them so they are sitting around here.

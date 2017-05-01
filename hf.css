@@ -1,0 +1,10 @@
+body { color: white; background: black; font: normal 14pt monospace; }
+a { text-decoration: none; }
+a.a { color: yellow; }
+a.b { color: green; }
+a.c { color: yellow; }
+a.d { color: green; }
+a.e { color: #00ffff; }
+a.f { color: white; }
+a.g { color: #ff00ff; }
+a.h { color: red; }

@@ -1,0 +1,23 @@
+variable ' dict-fd 
+variable ' data-fd 
+load-dict-rec 
+: dict-open dict-file file-open dict-fd ! ; 
+: dict-close dict-fd @ file-close ; 
+: data-open data-file file-open data-fd ! ; 
+: data-close data-fd @ file-close ; 
+: >>dict dict-fd @ emit-fd ! ; 
+: >>data data-fd @ emit-fd ! ; 
+: >>stdout stdout emit-fd ! ; 
+: data-print >>data dup 16 + ds-type sp dict->cfa c%type cr >>dict ; 
+: ?data-print dup dict->flags flags-data <>if drop ; then data-print ; 
+: pd-name 16 + ds-type sp ; 
+: pd-cfa dup dict->flags flags-word =if drop 0 . ; then dup dict->flags flags-var =if drop 0 . ; then dict->cfa ./h. ; 
+: pd-flags dict->flags ./h. ; 
+: pd-var dict->var ../h.. ; 
+: pd-entry dup ?data-print dup pd-name dup pd-cfa dup pd-flags pd-var cr ; 
+: ?pd-entry dup dict-used@ 0if dict-clear ; then 32 * dict-start + pd-entry ; 
+: print-dict 0 dict-count for dup ?pd-entry 1+ next drop ; 
+: export-dict dict-open data-open >>dict print-dict >>stdout dict-close data-close ; 
+: auto-bs-on bootstrap-block ` bootstrap/editor ] set-constant ; 
+: auto-bs-off editor-block ` bootstrap/editor ] set-constant ; 
+: export auto-bs-on export-source 1 ew-ascii? ! export-dict 0 ew-ascii? ! auto-bs-off ; 

@@ -1,0 +1,4 @@
+: time dup [ 0 13 _li 3 0 _li _sc r-tos 3 _mr ] ; 
+: ,rl9 tos-tos 9 0 31 _rlwinm ; 
+: -random rnd-seed @ $10450405 * 1+ dup rl9 rnd-seed ! ; 
+: random -random *hu ; 

@@ -1,0 +1,12 @@
+: token>cfa word-data5 dict@ ; 
+: ct-exec token>cfa jump ; 
+: ct-comp token>cfa [ r-tos r-here r-tos _subf ] 1+ low26 [ 3 $4800 _lis tos-tos 3 _or ] w, ; 
+: ct-const token>cfa ; 
+: ct-const-lit ct-const ,lit ; 
+: ct-const-def word-data5 [ 3 r-stack 0 _lwz 3 r-tos r-dict _stwx ] 2drop ; 
+: ct-def word-data5 here-cfa! $7c0802a6 w, $940efffc w, ; 
+: ct-tic word-data5 [ tos-tos r-dict _add ] ; 
+: ct-noop drop ; [ here bs-fix-addr ' color-table 
+] ct-exec ct-comp ct-const ct-const-lit ct-tic ct-noop ct-const-def ct-def [ 8 fix-table 
+: interpret rpush-src-cur [ r-src-cur r-stack 0 _lwz r-src-cur r-src-cur -2 _addi ] nip for *src++ [ 3 r-tos 2 26 29 _rlwinm ] color-table [ tos-tos 3 _add ] jump next rpop-src-cur ; 
+: load block dup sb->len interpret ; 

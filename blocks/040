@@ -1,0 +1,6 @@
+editor-block ' bootstrap/editor 
+variable ' bs-addr 
+variable ' bs-entry 
+variable ' bs-file-size 
+22 ' num-core-words 
+: dict-len [ r-dict-end _pushreg r-dict _pushreg ] - 32 / ; 

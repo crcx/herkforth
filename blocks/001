@@ -1,0 +1,8 @@
+Please read doc/editor   Shift-Q to quit
+
+This block is just to hold definitions that say what blocks things are in, and
+make words to (re)load them. This is as close to a file system as I get so far.
+
+the "1 2 3 4 5" is there so we can check that we can easily spot stack errors
+(when the editor starts up, check that these elements are still on the top of
+the stack.)

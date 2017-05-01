@@ -1,0 +1,5 @@
+: ed-char dup emit ed-len @ dup 1+ ed-len ! dict-new-str + b! ; 
+: comt [ exe-table-start ] ed-del-word [ $5c w, ] ed-del-char [ 8 w, ] ed-del-char [ $7f w, ] c-exec [ $5b w, ] c-compile [ $5d w, ] c-define [ $3a w, ] ?ed-space [ $20 w, ] ?ed-ret [ $a w, ] ?ed-ret [ $d w, ] ?block-next [ $7d w, ] ?block-prev [ $7b w, ] ?cursor-next [ $4e w, ] ?cursor-prev [ $48 w, ] bye [ $51 w, ] ed-exec [ $4d w, ] save [ $53 w, ] ed-exec-cb [ $42 w, ] c-const [ $27 w, ] c-var [ $26 w, ] c-tic [ $60 w, ] ?ed-go-to-def [ $54 w, ] ?ed-go-back [ $43 w, ] ed-redraw [ 12 w, ] ed-rename [ $52 w, ] ed-undelete [ $55 w, ] ?ed-find-def [ $44 w, ] ?ed-go-to-block [ $45 w, ] ed-find-next [ $56 w, ] c-string [ char-quote w, ] ed-char [ exe-table-end 
+: ed-key comt exe-table-go ; 
+: ed-loop key ed-key ed-loop ; 
+: edit ed-init ed-loop ; 166 load [ clear-screen edit 

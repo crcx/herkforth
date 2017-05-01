@@ -1,0 +1,7 @@
+Misc core words and assembler helpers
+
+_r+ ( reg x -- ) assembles code to add x to register reg
+_nip0 ( -- ) assemble code to remove 2nd to top of stack and put it in r0
+_2toreg ( reg -- ) assembles code to put 2nd to TOS in register reg
+_rpush ( reg -- ) push value from register reg onto rstack
+w, ( x -- ) append x to heap (32 bits)

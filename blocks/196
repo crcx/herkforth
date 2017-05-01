@@ -1,0 +1,1 @@
+: _start [ bs-set-entry ] init-stacks init-rdict init-rsrc init-here 0 load 

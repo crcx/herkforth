@@ -1,0 +1,5 @@
+: _array@ ,4* ,lit ` + ] compile ,@ ,; ; 
+: _array! ,4* ,lit ` + ] compile ` ! ] compile ,; ; 
+: dump-byte dup 16 / ->digit emit 16 umod ->digit emit ; 
+: ?dump-ws dup 16 umod 0if cr drop ; then 4 umod if; sp ; 
+: dump for dup b@ dump-byte 1+ dup ?dump-ws next drop ; 

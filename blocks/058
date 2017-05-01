@@ -1,0 +1,5 @@
+term-restore 
+: boo-flush [ 3 r-flushed 0 0 26 _rlwinm r-flushed r-here _mr ] dup [ r-tos 3 r-here _subf tos-tos $1f _addi tos-tos 27 5 31 _rlwinm. here 0 _bne ] ; then for [ 0 3 _dcbf _sync 0 3 _icbi 3 3 $20 _addi ] next [ _sync _isync ] ; 
+: boo-move [ 4 r-tos -1 _addi ] drop [ 3 r-stack 0 _lwz 3 3 -1 _addi ] for [ 5 3 1 _lbzu 5 4 1 _stbu ] next drop ; 
+: flush-bootstrap [ elf-load-addr r-flushed _rlit32 elf-load-addr bs-file-size @ @ + r-here _rlit32 ] boo-flush ; 
+: run-bootstrap [ bs-addr @ ] lit [ bs-file-size @ @ ] lit elf-load-addr boo-move flush-bootstrap [ elf-load-addr $18 + ] lit @ jump ; [ run-bootstrap 

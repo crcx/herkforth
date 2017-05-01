@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>herkforth's bootstrapping process</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:33 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_bootstrapping">http://herkamire.com/jason/herkforth_bootstrapping</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>herkforth's bootstrapping process</h2>
+
+<p>This page describes the <a href="herkforth.html">herkforth</a> rebuilds it's self. The word to do this
+is called <code>bootstrap</code> (so you can see the source by typing <code>bootstrapD</code></p>
+
+<p>Warning, this describes code that I'm in the middle of writing, it hasn't even
+hit the repository yet as of this writing.</p>
+
+<h3>General</h3>
+
+<p>Herkforth creates an image of a new ELF file in memory at <code>here</code>, using
+<code>w,</code> and <code>allot</code>. No binary code is preserved. This image is then written
+out to a new file, and copied back down to the initial load address and
+executed there.</p>
+
+<h3>Details</h3>
+
+<ul>
+<li>Align on a 32 byte boundary. (So when subsequent pieces are aligned, they will
+still be alligned then the whole thing is moved down to the load address.)</li>
+<li>Append elf header, saving the addresses where various fields need to be filled
+in later (the entry point, and the size of the file)</li>
+<li>Append the source blocks. As the source is copied, mark which dictionary
+entries are used (in a separate array.)</li>
+<li>Padding (make room for more source blocks to be added.)</li>
+<li>Next the dictionary is copied in. The following modifications are made as it is
+copied:</li>
+<li>1) If the entry was not used by a source token (as marked above) then that
+dictionary entry is replaced by null bytes.</li>
+<li>2) If the entry is a normal word (eg not a variable) then the CFA field is set
+to zero.</li>
+<li>3) If the entry is a variable, then the CFA field is updated so it will still
+point to the variable_value field.</li>
+<li>Padding (so the dictionary can expand)</li>
+<li>Now data objects are copied. To accomplish this, loop through the new
+dictionary, and for entries with the flags set to indicate a data word, copy
+the data object pointed to by the CFA, and update the CFA.</li>
+<li>Note: there is no padding after the data, because data objects are added on the
+heap. (And are copied all to the same place as described above when you
+bootstrap.)</li>
+<li>Kernel words compiled.</li>
+<li>The CFAs for the kernel words are copied and translated into the new dictionary.</li>
+<li>initialization routine is compiled in. This sets up the registers to point to
+the source blocks, dictionary, stacks etc, and then finishes by telling the
+kernel to load block 0.</li>
+<li>That's it for appending stuff.</li>
+<li>Fix up the headers in the elf file (entry point, and file size).</li>
+<li>Write out ELF to a new file</li>
+<li>Now to copy the whole mess back to the initial load address ($10000000 on
+linux) and execute it. But this isn't as easy as it sounds, because doing so
+will overwrite the memory copy routine, etc.. So:</li>
+<li>1) compile code (which does not call any existing code) to move the new image to the load address,</li>
+<li>2) to flush the caches</li>
+<li>3) branch to the new entry point</li>
+<li>run it.</li>
+</ul>
+
+<h3>See Also:</h3>
+
+<p><a href="build_herkforth_from_source_files.html">build herkforth from source files</a></p>
+
+<p><a href="herkforth_add_core_word.html">herkforth add core word</a></p>
+
+<p><a href="how_herkforth_works.html">how herkforth works</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a></p>
+
+<p><a href="herkforth.html">herkforth</a>
+</p>
+
+
+  </body>
+</html>

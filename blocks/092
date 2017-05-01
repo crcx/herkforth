@@ -1,0 +1,10 @@
+: get-cursor-pos cb-addr [ tos-tos 1020 _lhz ] cursor-pos ! ; 
+: save-cursor-pos cursor-pos @ cb-addr 1020 + h! ; 
+: block-next save-cursor-pos cur-block @ 2+ cur-block ! get-cursor-pos ed-init ; 
+: ?block-next cur-block @ 2 + num-blocks @ =; block-next ; 
+: block-prev save-cursor-pos cur-block @ 2- cur-block ! get-cursor-pos ed-init ; 
+: ?block-prev cur-block @ 0=; block-prev ; 
+: cursor-next cursor-pos @ 1+ cursor-pos ! ed-init ; 
+: ?cursor-next cursor-pos @ cb-size 1- =if ; then cursor-next ; 
+: cursor-prev cursor-pos @ 1- cursor-pos ! ed-init ; 
+: ?cursor-prev cursor-pos @ 0if ; then cursor-prev ; 

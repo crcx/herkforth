@@ -1,0 +1,7 @@
+variable ' mand-zi 
+variable ' mand-zr 
+variable ' mand-ci 
+variable ' mand-cr 
+: rnd-allot for -random w, next ; [ here 0 w, 99 rnd-allot ' mand-color-t 
+: mand-color 100 umod 4 * mand-color-t + @ ; dup 0=; dup 256 swap- 5 / 65536 * | ; 
+: ssquared dup s* ; 

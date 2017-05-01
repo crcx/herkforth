@@ -1,0 +1,2 @@
+screen-str of-finddevice address-str of-tmp 4 of-getprop drop of-tmp @ ' fb 
+: fb-test 0 fb ! 1 . ; 

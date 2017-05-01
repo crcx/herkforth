@@ -1,0 +1,10 @@
+Assembler
+
+These are pretty straight forward. put the parameters for the mnemonic on the
+stack, then call one of these words.
+
+Note: for load and store instructions that take an immediate offset, the
+immediate is passed on top of the stack (not in the middle as it appears in
+standard asm syntax)
+
+please see doc/asm for more details.

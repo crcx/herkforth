@@ -1,0 +1,13 @@
+: _mfspr 339 31 _5-s10 ; 
+: _mfctr 9 _mfspr ; 
+: _mtspr 467 31 _5-s10 ; 
+: _mtctr 9 _mtspr ; 
+: _mtlr 8 _mtspr ; 
+: _mulli 7 _5-5-16 ; 
+: _mullw 235 31 _5-5-5 ; 
+: _mulhw $4b 31 _5-5-5 ; 
+: _mulhwu $b 31 _5-5-5 ; 
+: _or 444 31 _l5-5-5 ; 
+: _ori 24 _l5-5-16 ; 
+: _nop 0 0 0 _ori ; 
+: _mr 0 _ori ; 

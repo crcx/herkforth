@@ -1,0 +1,7 @@
+: w, [ r-tos r-here 0 _stw r-here 4 _r+ ] drop ; 
+: | [ _niptmp tos-tos r-tmp _or ] ; 
+: ,dup $95edfffc w, ; 
+: ,drop $81ed0000 w, $39ad0004 w, ; 
+: a, [ r-a r-here 0 _stw r-here 4 _r+ ] ; 
+: _rlm>a 20 opcode |55 |54 |53 r-a r-tos |51 |52 a, ,drop ; 
+: ,lit ,dup dup hi17 if dup hi16 $ffff <>if dup hi16 $3de00000 | w, low16 0; $61ef0000 | w, ; then low16 then $39e00000 | w, ; 

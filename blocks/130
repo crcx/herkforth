@@ -1,0 +1,11 @@
+: dict->def-color 4+ b@ dup 0if drop 7 ; then dup $a0 =if drop 6 ; then $90 =if 5 ; then 0 ; 
+: dict->def-token dup dict->def-color swap dict->token | ; 
+: addr-in-src? dup start-of-block dup sb->len 2 * + >=if 0 ; then 1 ; 
+: -src-correct? dup dict-src@ src->addr dup addr-in-src? 0if 2drop 0 ; then h@ swap dict->def-token =if 1 ; then 0 ; 
+: src-correct? dup dict->def-color 0if drop 1 ; then -src-correct? ; 
+: token-in-block? block dup h>a sb->len for dup h+@ =if drop a addr->src 1 unloop ; then next drop 0 ; 
+: -find-token 0 num-blocks @ 2 / for 2dup token-in-block? if nip nip unloop ; then 2+ next 2drop 0 ; 
+: find-token dup cur-block @ token-in-block? if nip ; then -find-token ; 
+: ed-fix-src dup dict->def-token find-token swap dict-src! ; 
+: ?ed-fix-src dup src-correct? if drop ; then ed-fix-src ; 
+: dict->def-addr dup ?ed-fix-src dict-src@ dup 0=; src->addr ; 

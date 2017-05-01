@@ -1,0 +1,7 @@
+conditionals ...if and ...;
+
+,0=    compile code to compare TOS to zero
+,=     compile code to compare top two items ot the stack and drop them
+
+...if  branch to "then" unless condition is met
+...;   return from word if condition is met

@@ -1,0 +1,9 @@
+: ,low26 tos-tos 0 6 31 _rlwinm ; 
+: ,word-color tos-tos 0 28 31 _rlwinm ; 
+: ,word-color2 tos-tos 2 26 29 _rlwinm ; 
+: ,word-data tos-tos 28 4 31 _rlwinm ; 
+: word-data word-data ; 
+: ,word-data5 tos-tos 1 15 26 _rlwinm ; 
+: ,word-data4 tos-tos 0 16 27 _rlwinm ; 
+: ,word-data2 tos-tos 30 2 29 _rlwinm ; 
+: ,sb->len tos-tos 1022 _lhz ; 

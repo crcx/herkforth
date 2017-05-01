@@ -1,0 +1,6 @@
+: deck-allot 0 52 for dup b, 1+ next drop ; [ here deck-allot ' deck 
+: deck@ deck + b@ ; 
+: deck! deck + b! ; 
+: deck-swap over deck@ over deck@ >r swap deck! r> swap deck! ; 
+: shuffle 52 52 for 1- dup dup random deck-swap next drop ; 
+: shuffle-test shuffle deck >a 52 for b+@ . next ; 

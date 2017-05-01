@@ -1,0 +1,11 @@
+: ?to-digit dup 48 <if drop 0 ; then dup 57 >if drop 0 ; then 48 - 1 ; 
+: to-hex-digit dup 58 <if 48 - ; then 87 - ; 
+: hex-str->num b--a 0 swap for 16 * b+@ to-hex-digit + next ; 
+: ?+str->num b--a 0 swap for 10 * b+@ ?to-digit 0if unloop drop 0 ; then + next 1 ; 
+: ?neg-str->num 1- b++a ?+str->num if -1 * 1 ; then 0 ; 
+: ?str->num b@a $24 =if 1- b++a hex-str->num 1 ; then b@a $2d =if ?neg-str->num ; then ?+str->num ; 
+: ?ed-str->num dict-new-str >a ed-len @ ?str->num ; 
+: ?ed-new-num ?ed-str->num 0if ed-?? ; then dict-add-num ; 
+: ed-define dict-new dict++ ed-new-word ; 
+: ed-define-const dict-new flags-const dict-new-flags ! dict++ ed-new-word ; 
+: ed-define-var dict-new dup 8 + 0 over ! over ! flags-var dict-new-flags ! dict++ ed-new-word ; 

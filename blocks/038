@@ -1,0 +1,2 @@
+: fopen [ 5 r-tos _mr ] drop [ 4 r-tos _mr ] drop [ 3 r-tos _mr 0 5 _li _sc r-tos 3 _mr ] ; 
+: file-open $241 $1a4 fopen ; 

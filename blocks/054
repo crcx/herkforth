@@ -1,0 +1,2 @@
+: flush [ 3 r-flushed 5 _clrrwi r-flushed r-here _mr ] dup [ r-tos 3 r-here _subf r-tos r-tos $1f _addi r-tos r-tos 27 5 31 _rlwinm. here 0 _bne ] ; then for [ 0 3 _dcbf _sync 0 3 _icbi 3 3 $20 _addi ] next [ _sync _isync ] ; 
+: ,; [ 6 r-here -4 _lwz 4 6 6 26 31 _rlwinm 4 18 _cmpwi here 0 _bne r-here r-here -4 _addi ] then $800e0000 w, $39ce0004 w, $7c0803a6 w, [ here 0 _bne 6 6 0 13 - _addi 6 r-here 0 _stw r-here 4 _r+ ] flush old-; then $4e800020 w, flush old-; 

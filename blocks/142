@@ -1,0 +1,3 @@
+: _abl here - _bl ; 
+: ,compile dict->cfa ,lit ` _abl dict->cfa ] lit _abl ; 
+: ,set-constant ,lit ` dict-cfa! ] compile ; 

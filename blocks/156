@@ -1,0 +1,11 @@
+: ,12-lit here >r ,lit here r> - 8 <>; _nop ; 
+: create here 28 + ,12-lit ,; ; 
+: allot [ r-here r-here r-tos _add ] drop ; 
+: 4/up 3 + 4 / ; 
+: allot-0 4/up for 0 w, next ; 
+: aligned 4/up 4* ; 
+: aligned32 31 + 32 / 32 * ; 
+: align here aligned here! ; 
+: align32 here aligned32 here! ; 
+: _liw 2dup hi16 _lis over swap _ori ; 
+: _rlit32 swap _liw ; 

@@ -1,0 +1,7 @@
+: print-segfault $53 emit $45 emit $47 emit $46 emit $41 emit $55 emit $4c emit $54 emit sp ; 
+: print-segfaults 200 for 12 for print-segfault next cr next ; 
+: push-r1 [ r1 _pushreg ] ; [ push-r1 ' r1-save 
+: install-signal [ r0 48 _li r3 r-tos _mr r4 _2toreg _sc ] 2drop ; 
+: install-sigsegv 11 install-signal ; 
+: install-sigill 4 install-signal ; 
+: segv-handler [ here r1-save r1 _rlit32 ] print-segfaults term-restore $10000018 @ jump [ dup install-sigsegv install-sigill 

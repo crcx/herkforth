@@ -1,0 +1,3 @@
+number printing
+
+./h. ( x -- ) print x as signed decimal it's between -64K and 64K, hex otherwise.

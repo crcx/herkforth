@@ -1,0 +1,10 @@
+: .s elf-load-addr $ffffc + [ r-tos r-stack r-tos _subf ] 4 / dup 1 <if drop ; then elf-load-addr $ffffc + >a for -@ ./h. next ; 
+: ed-show-stack s-stack ctype .s ; 
+: 10s-pad 9 >; sp ; 
+: 100s-pad dup 10s-pad 99 >; sp ; 
+: ed-show-block cur-block @ dup . 100s-pad ; 
+: ed-header term-origin 7 term-color ed-show-block sp sp sp csb-title-type cr cr ed-show-stack cr cr ; 
+: ed-show-color color @ ew-colort + b@ dup 16 * term-color sp term-color sp ; 
+: ed-show-buf dict-new-str ed-len @ type ; 
+: ?ed-show-buf ed-len @ 0=; ed-show-buf ; 
+: ed-input-line 0 term-height 1- term-moveto clear-line ed-show-color ?ed-show-buf ; 

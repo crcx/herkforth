@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Changes in recent versions of herkforth</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:34 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_changes">http://herkamire.com/jason/herkforth_changes</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>Changes in recent versions of herkforth</h2>
+
+<h3>New in herkforth-0.7.1</h3>
+
+<ul>
+<li>fixed bug that stopped you from creating new variables</li>
+<li>added silly example code to shuffle a deck of cards</li>
+<li>fixed documentation on some of the <a href="herkforth_command_keys.html">herkforth command keys</a></li>
+<li>back stack is persistent (you can still go back with shift-C even after saving)</li>
+<li>html export works again (and is now fast)</li>
+<li>strings are starting to be supported. you can create them with &quot; and retype
+them by putting your cursor on them and executing edit-string. More to come
+soon I hope.</li>
+</ul>
+
+<h3>New in herkforth-0.7</h3>
+
+<ul>
+<li>bug: can't create variables. Please use herkforth-0.7.1 instead.</li>
+<li>rewrote bootstrapping code so that data words can be moved and resized, so the CFAs for old words are cleared and unused dictionary entries are blanked out completely.</li>
+<li>separate key for deleting words, than for deleting characters on the input line (oh, added minimal editing on the input line)</li>
+<li>color keys can be used to change the color of existing words</li>
+<li>save to a binary capable of booting! works in PearPC emulator (but PearPC is abysmally slow at updating the screen)</li>
+<li>adding string support (statically compiled. can't change size)</li>
+<li>"find next&quot; key</li>
+<li>fixed two crashing bugs that would sometimes crop up after saving.</li>
+<li>export source to html/css</li>
+<li>lookup branch tables now have a default that is executed when the key is not found.</li>
+<li>fixed new-block</li>
+</ul>
+
+<h3>New in herkforth-0.6</h3>
+
+<ul>
+<li>jump to a given block number (type it and press shift-E)</li>
+<li>error message instead of segfault when you try to execute a word (by typing it and pressing enter) that has not yet been compiled.</li>
+<li>create variables in the editor.</li>
+<li>fixed crashing bug in the back stack.</li>
+<li>you can add blocks with new-block (oops, it's broken. try a newer version).</li>
+</ul>
+
+<h3>New in herkforth-0.5</h3>
+
+<ul>
+<li>search for a definition (type word, and press <code>shift-D</code>)</li>
+<li><a href="herkforth_export_source.html">herkforth export-source</a> (export to ascii source from within herkforth) This makes it so (I think) all future work can be done from within herkforth!</li>
+<li>added card game (see <a href="herkforth_fun.html">herkforth fun</a>)</li>
+</ul>
+
+<h3>New in herkforth-0.4.1</h3>
+
+<ul>
+<li>fixed some documentation links.</li>
+<li>fixed display glitches on terminals with non-black backgrounds</li>
+</ul>
+
+<h3>See Also</h3>
+
+<p><a href="herkforth.html">herkforth</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a>
+</p>
+
+
+  </body>
+</html>

@@ -1,0 +1,12 @@
+here 1020 allot ' ed-del 
+variable ' ed-del-cur 
+variable ' ed-del-start 
+: ++1020mod >a @a 2+ 1020 umod !a ; 
+: --1020mod >a @a 1018 + 1020 umod !a ; 
+: ?ed-del-start++ ed-del-cur @ ed-del-start @ <>; ed-del-start ++1020mod ; 
+: ed-del-addr ed-del-cur @ ed-del + ; 
+: ed-del! ed-del-addr h! ; 
+: ed-del@ ed-del-addr h@ ; 
+: ed-del-push ed-del! ed-del-cur ++1020mod ?ed-del-start++ ; 
+: ed-del-pop ed-del-cur --1020mod ed-del@ ; 
+: ?ed-del-pop ed-del-cur @ ed-del-start @ =if 0 ; then ed-del-pop 1 ; 

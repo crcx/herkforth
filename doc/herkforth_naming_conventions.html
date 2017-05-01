@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>herkforth naming conventions</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:36 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_naming_conventions">http://herkamire.com/jason/herkforth_naming_conventions</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>herkforth naming conventions</h2>
+
+<p>This is essential for the readability.</p>
+
+<h3>Prefixes</h3>
+
+<ul>
+<li><code>$</code>        hex number.</li>
+<li><code>,</code>        <a href="herkforth_immediates.html">herkforth immediates</a></li>
+<li><code>_</code>        (underscore) assembler word. This word takes operands off the
+stack, and compiles at least one instruction.</li>
+<li><code>-</code>        used to implement word without the - prefix (probably not useful
+otherwise)</li>
+<li><code>?</code>        Either do something (generally the same word without the ?) or do
+nothing.</li>
+<li><code>ew-</code>      (Emit Word) part of the source printing code</li>
+<li><code>ed-</code>      EDitor</li>
+<li><code>cb-</code>      Current Block</li>
+<li><code>cg-</code>       Card Game (blocks 108 and 110)</li>
+</ul>
+
+<h3>Postfixes</h3>
+
+<ul>
+<li><code>?</code>      returns true or false</li>
+</ul>
+
+<h3>Other Conventions</h3>
+
+<p>loads and stores contain the following characters:</p>
+
+<ul>
+<li><code>@</code>     load</li>
+<li><code>!</code>     store</li>
+<li><code>h</code>     half-word (16 bits)</li>
+<li><code>b</code>     byte</li>
+<li><code>+</code>     increment. if this is before the @/! then it's pre-increment, after
+means post-increment</li>
+<li><code>-</code>     decrement. if this is before the @/! then it's pre-decrement, after
+means post-decrement</li>
+<li><code>s</code>     takes address off the stack</li>
+<li><code>a</code>     uses address in the A register</li>
+</ul>
+
+<p>Defaults:</p>
+
+<ul>
+<li>When you are using a default, you leave off the symbol for it.</li>
+<li>load/store a word (32 bits). (hence there is no &quot;w&quot; prefix)</li>
+<li>Use address in the A register if their is a - or +, otherwise take address off
+stack.</li>
+</ul>
+
+<h3>Acceptable Characters</h3>
+
+<p>Use all lowercase.</p>
+
+<p>The system supports any char you can type that's not mapped to some action, but
+for future compatibility, please only use lower case letters, numbers, and the
+following symbols: _,!@+-*/=&lt;&gt;?|.;</p>
+
+<h3>See Also:</h3>
+
+<p><a href="herkforth_coding_conventions.html">herkforth coding conventions</a></p>
+
+<p><a href="herkforth_words.html">herkforth words</a></p>
+
+<p><a href="herkforth_immediates.html">herkforth immediates</a></p>
+
+<p><a href="herkforth_internals.html">herkforth internals</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a></p>
+
+<p><a href="herkforth.html">herkforth</a>
+</p>
+
+
+  </body>
+</html>

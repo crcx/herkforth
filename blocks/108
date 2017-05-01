@@ -1,0 +1,19 @@
+here 12 allot ' cg-buf 
+variable ' cg-src 
+variable ' cg-dest 
+: cg-deal cg-buf b>a 12 for 10 random 1 + b+! next ; 
+: cg-@ cg-buf + b@ ; 
+: cg-! cg-buf + b! ; 
+: cg-key->pos $31 - dup 3 umod swap 3 / 2 swap - 3 * + ; 
+: 10<sp 9 >; sp ; 
+: cg-color a cg-buf - cg-src @ <>; $70 term-color ; 
+: -cg-c-disp dup 10<sp cg-color .. 7 term-color sp ; 
+: cg-c-disp dup if -cg-c-disp ; then drop sp sp sp ; 
+: cg-x-disp for b+@ cg-c-disp next cr ; 
+: cg-display term-origin cg-buf b>a 3 cg-x-disp 3 cg-x-disp 6 cg-x-disp ; 
+: cg-quit rdrop [ _ctrpop ] rdrop rdrop rdrop rdrop ; 
+: cg-redeal cg-deal cg-display ; 
+: cg-comt [ exe-table-start ] cg-quit [ $51 w, ] cg-redeal [ $72 w, ] ignore-others [ exe-table-end 
+: is-digit dup $30 <if drop 0 ; then $39 >if 0 ; then 1 ; 
+: cg-in-pos key dup is-digit if cg-key->pos ; then cg-comt exe-table-go cg-in-pos ; 
+: cg-move over cg-@ swap cg-! 0 swap cg-! ; 

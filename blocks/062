@@ -1,0 +1,15 @@
+$c0020000 ' flags-number 
+$a0020000 ' flags-const 
+$90020000 ' flags-var 
+0 ' flags-word 
+$88020000 ' flags-data 
+0 ' color-execute 
+1 ' color-compile 
+2 ' color-number 
+3 ' color-literal 
+4 ' color-tic 
+5 ' color-noop 
+6 ' color-const-def 
+7 ' color-define 
+8 ' color-string 
+

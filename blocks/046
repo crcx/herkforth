@@ -1,0 +1,5 @@
+: ,dict@ tos-tos r-dict _lwzx ; 
+: ,here-cfa! r-here r-tos r-dict _stwx ,drop ; 
+: ,*src++ ,dup r-tos r-src-cur 2 _lhzu ; 
+: ,rpush-src-cur r-src-cur _rpush ; 
+: ,rpop-src-cur r-src-cur _rpop ; 

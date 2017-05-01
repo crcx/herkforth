@@ -1,0 +1,152 @@
+Todo list for this project. For the big picture see doc/herkforth_mission.html
+(More stars indicate higher priority)
+
+
+****	make back stack persistent
+
+	add documentation for words that don't work in the standard way (include COUNT and FOR)
+	document: what happens when you press space
+
+VICTORY	release herkforth
+VICTORY	release herkforth-bin
+
+****	red words align heap before starting?????
+DONE	interpret is a bad word to have in new blocks by default
+	\ should always delete (not clear input line)
+
+VICTORY	rewrite bootstrap
+
+	Cleanup: lots of silly code uses dict-start (need to use dict-len a lot of places etc)
+
+****	String support:
+DONE		change bootstrap for data so it pulls data from where the dictionary entries point
+DONE		add a word to copy data to the heap (if it's not at the end already) and updates the data pointer to it
+DONE		finish data-resize
+		editor:
+			1) input line, no capitals etc
+			2) text-edit mode:
+				everything appends input except: key to end
+				key for special chars
+
+
+****	make unit tests
+		seperate blocks containing only tests
+		tests are run as those blocks are LOADed
+		test word restores HERE after LOADing test blocks (after each?)
+		How do I abort out of the LOAD ?
+
+
+****	release a demo for qemu with set-term and restore-term from fpos
+
+
+	buffer editor output:	
+		make OF version of write (done but untested)
+		make a constant for STDOUT or find a better way to do it STDOUT is probably not 1 in OF
+DONE	buffer editor display and source export
+	buffer dictionary and data export
+		
+
+	output sin() table and check against fp version
+
+BUGS
+
+	?red-cr or something doesn't work right at certain cursor locations
+	fix shift-D so it finds without the comma first
+
+
+
+
+
+	shorten blocks:
+		6 (two lines?) 12 18 (one line) 20 22 28 (one line) 32 (three? lines) 34 (two lines) 44 66 68 72 (two lines) 90 96 (one line) 98 106 108 (two) 110 one 116 120 ...
+		
+
+
+DONE	run herkforth under pearpc
+
+
+Plan:
+	create a free list in the unused dictionary entries
+	reuse dictionary entries from the free list for new words
+****	make data editable
+**	add search-foreward:
+		change ?ed-find-next so it only searches ed-num-blocks (because search-foreward can't assume that a source token exists)
+	make it so ed-del-word doesn't clear the input buffer instead of deleting a word (when there's something there)
+
+
+MAJOR STUFF
+
+	figure out database
+	figure out interface for editing data
+	? remove define-const color?
+
+
+BUGS/INCOMPLETE:
+	handle empty blocks
+	can't insert or paste to the first word in block
+	don't allow people to rename a word to be the same as another word
+
+
+Editor:
+
+	More keys:
+		make some way to enter text at the begining of the block
+	split an existing block
+
+
+Misc:
+	use strings for other file names (out/ hf.html)
+*	delete the incrementing stack store/fetches (rewrite h+move and h-move)
+	turn these registers into variables:
+		r-src r-src-cur r-src-end
+	So we just have these registers:
+		stack, rstack, tos, rtos, A, scratch
+
+	add: 2* 4* 3+
+	optomize + * / - etc to compile immediate versions if last instruction was _li
+	make dict->def-color use flags-* constants
+	add =drop; and friends
+	source control. some way to go back. memmory management
+****	automatic dependancy compiling
+**	complete Mac OS 10 port
+*	change branch table code so that exe-table-start compiles a call to search-exe-table
+	cleanup bootstrapping code
+*	move stacks to begining of address space (so heap overflow won't mess up return stack)
+	? change colors to 3 bits
+*****	boot it
+
+
+
+Documentation:
+
+	make a glossary. include what I mean by "dictionary"
+	tutorial
+	create daydreams document with unfinished ideas
+
+
+Think about...
+
+	branch table if (doesn't works with macros):     : foo bla <bif no yes
+
+****	literate programming
+	quasi-mode
+	text arguments to commands
+*****	undo feature
+	should I split dictionary into seperate arrays (array of strings, array of CFAs etc)
+	backspace key
+****	raskin... modes...
+	zooming interface
+	scene graph
+	interactive tutorial (help layer (which points at parts it's talking about) you can toggle)
+	multitasking
+*****	new way of storing source definitions
+		dict header for each word stores pointer/id for definition
+		definition is stored in data section counted.
+		blocks are a list of what definitions are to be executed/compiled there and what variables/comments/constants are to be displayed there
+			definitions are displayed one per line
+			??? unnamed defs (or auto named defs where the name dosen't show)
+
+Notes:
+
+	herkforth-0.4 from revision 621
+	herkforth-0.4.1 from revision 623

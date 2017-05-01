@@ -1,0 +1,17 @@
+See the file COPYING to know your rights (GPL version 2)
+
+see doc/build_herkforth.html file for build and test instructions.
+
+All The documentation is in the doc/ directory. You'll probably want to start
+at doc/herkforth.html
+
+The documentation is just a dump from the wiki, which is at:
+
+http://herkamire.com/jason/herkforth
+
+
+VIM USERS:
+	Install syntax_coloring.vim (read the top of the file for instructions)
+
+	Run "make tags" and each word in the sources will be a tag to it's
+	definition. Read the comments at the top of gentags.pl for details.

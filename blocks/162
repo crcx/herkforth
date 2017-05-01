@@ -1,0 +1,17 @@
+: _pushreg ,dup r-tos swap _mr ; 
+: _popreg r-tos _mr ,drop ; 
+: _2toreg r-stack 0 _lwz ; 
+: _3toreg r-stack 4 _lwz ; 
+: ,2drop r-tos r-stack 4 _lwz r-stack 8 _r+ ; 
+: ,3drop r-tos r-stack 8 _lwz r-stack 12 _r+ ; 
+: _rpush r-rstack -4 _stwu ; 
+: ,>r r-tos _rpush ,drop ; 
+: ,rdrop r-rstack 4 _r+ ; 
+: ,r@ ,dup r-tos r-rstack 0 _lwz ; 
+: _rpop r-rstack 0 _lwz ,rdrop ; 
+: ,r> ,dup r-tos _rpop ; 
+: w, [ r-tos r-here 0 _stw r-here 4 _r+ ] drop ; 
+: h, [ r-tos r-here 0 _sth r-here 2 _r+ ] drop ; 
+: b, [ r-tos r-here 0 _stb r-here 1 _r+ ] drop ; 
+: _sc $44000002 w, ; 
+: ,trap $7fe00008 w, ; 

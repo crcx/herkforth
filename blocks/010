@@ -1,0 +1,15 @@
+: dup dup ; 
+: drop drop ; 
+: swap [ r0 r-tos _mr r-tos r-stack 0 _lwz r0 r-stack 0 _stw ] ; 
+: ,over ,dup r-tos r-stack 4 _lwz ; 
+: over over ; 
+: tuck swap over ; 
+: 2dup over over ; 
+: _r+ over swap _addi ; 
+: ,nip r-stack 4 _r+ ; 
+: nip nip ; 
+: _nipreg r-stack 0 _lwz ,nip ; 
+: _nip0 r0 _nipreg ; 
+: _niptmp r-tmp _nipreg ; 
+: - [ _nip0 tos-tos r0 _subf ] ; 
+: swap- [ _nip0 r-tos r0 r-tos _subf ] ; 

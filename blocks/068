@@ -1,0 +1,24 @@
+variable ' ew-fg? 
+variable ' ew-last-color 
+load-%enc 
+: ?ew-fg ew-fg? @ if; [ tos-tos 4 _slwi ] 1 ew-fg? ! ; 
+: ?define-cr 7 <>; ?cr ; 
+: ?var-cr 5 <>; ?cr ; 
+: ?cr-before dup ?define-cr ?var-cr ; 
+: ?cr-after word-color 6 <>; cr ; 
+: ew-colort [ create 3 b, 2 b, 3 b, 2 b, 6 b, 7 b, 5 b, 1 b, 7 b, 7 b, 0 b, 0 b, 
+: ew-color-color ew-colort + b@ ?ew-fg term-color ; 
+: ew-ascii-colort [ create $5b b, $5d b, $5b b, $5d b, $60 b, $26 b, $27 b, $3a b, $26 b, char-quote b, 0 b, 0 b, 
+: ew-merge-colors dup 3 >; 2 umod ; 
+: ew-ascii-color ew-merge-colors ew-last-color @ 2 umod over ew-last-color ! =; ew-last-color @ ew-ascii-colort + b@ emit sp ; 
+: -ew-color ew-ascii? @ if ew-ascii-color ; then ew-color-color ; 
+: ?comma-+1 token->dict-str b@ $2c <>; 1+ ; 
+: ?yellow-comma+1 dup word-color 0 <>if drop ; then ?comma-+1 ; 
+: token->dcolor dup word-color swap ?yellow-comma+1 ; 
+: -name-end b-@ if; -name-end ; 
+: name-end 16 + >a -name-end a 1+ ; 
+: ds->addr-u dup name-end over - ; 
+: ds-type ds->addr-u type ; 
+: token->dname dup token->dict-str dup name-end >r swap ?yellow-comma+1 r> over - ; 
+: tok-print-dname token->dname type ; 
+: emit-word dup token->dcolor dup ?cr-before -ew-color dup tok-print-dname sp ?cr-after ; 

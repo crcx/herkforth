@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>herkforth's alternative to immediates</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:35 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_immediates">http://herkamire.com/jason/herkforth_immediates</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>herkforth's alternative to immediates</h2>
+
+<h3>reasoning</h3>
+
+<p>This is (to my knowledge) a unique approach to immediates and I hope, much more
+simple and usable.</p>
+
+<p>I have a naming convention (starting a word with a comma) that identifies a
+word as one that compiles something. I found that the words that I wanted to be
+able to use without switching to execute color and back all started with a
+comma (such as: ,if ,then ,for ,next etc.). My idea is to have the editor take
+advantage of this convention and allow you to write pretty code (like
+immediates allow), while keeping the interpreter very simple (and modeless.)</p>
+
+<p>-- <a href="jason_woofenden.html">Jason Woofenden</a></p>
+
+<h3>Explanation</h3>
+
+<p>Lets say we have the following definition:</p>
+
+<p><code>: ,if ,0= here 0 ,beq [ ,;</code></p>
+
+<p><code>,if</code> will compile the code for the conditional branch. To use it we must do:</p>
+
+<p><code>: .-or-h. [ ,if ] . [ ,then ] h. [ ,;</code></p>
+
+<p>This is a pain for the user, and stifles optimization. But it's very nice and
+straightforward for the interpreter.</p>
+
+<p>I would like to be able to type this:</p>
+
+<p><code>: .-or-h. if . then h. ;</code></p>
+
+<p>And get the same result.</p>
+
+<p>My editor makes this possible by doing the following:</p>
+
+<p>When you type a green word and hit space the editor will search the dictionary
+for a word with the same name, but prefixed by a comma. If found, the editor
+will insert this other word in the execute color instead.</p>
+
+<p>The editor will of course do the reverse translation and display:</p>
+
+<p><code>: .-or-h. if . then h. ;</code></p>
+
+<p>even though the source block really contains this:</p>
+
+<p><code>: .-or-h. [ ,if ] . [ ,then ] h. [ ,;</code></p>
+
+<h3>Summary</h3>
+
+<p>When you enter a green word, the editor will replace it with a yellow word with
+the same name except starting with a comma (if it can find one.)</p>
+
+<p>Any yellow word starting with a comma, will be displayed as a green word
+without the comma.</p>
+
+<h2>Advantages</h2>
+
+<h3>Easy to optimize</h3>
+
+<p>This system makes it easy to write optimizations for words like dup. Dup is one
+instruction, so it is very silly to be compiling a branch to dup, when it would
+take the same space and go way faster if we could compile that instruction
+instead of a branch. You can simply do this:</p>
+
+<p><code>: ,dup $95edfffc w, ;</code></p>
+
+<p>and whenever there is a green dup, that will be executed. You still need do
+define dup though so it can be used in yellow, but that's easy:</p>
+
+<p><code>: dup dup ;</code></p>
+
+<h3>Access to both &quot;compiler word&quot; and normal &quot;runtime&quot; definition</h3>
+
+<p>For optimizations, such as dup, there will be two words <code>dup</code> and <code>,dup</code></p>
+
+<p>This comes in very handy. You can compile a call to ,dup with no extra fuss (no
+syntax or funky words like &quot;postpone&quot; or &quot;compile&quot;.)</p>
+
+<h3>No Modes</h3>
+
+<p>There is no need for modes. There is no &quot;interpret mode&quot; and &quot;compile mode&quot;
+like conventional forths. This makes everything simpler. You don't have to
+write &quot;mode aware&quot; words. You simply write a version for compiling and a
+version for executing, and you can access either with no fuss.</p>
+
+<h3>See Also:</h3>
+
+<p><a href="how_herkforth_works.html">how herkforth works</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a></p>
+
+<p><a href="herkforth.html">herkforth</a>
+</p>
+
+
+  </body>
+</html>

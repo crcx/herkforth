@@ -1,0 +1,18 @@
+Assembler: bitfields
+
+These are all the words 
+
+opcode starts a new instruction with one opcode
+2opcode starts assembling a new instruction with a seccondary opcode (pass primary on top of stack)
+|51 |52 |53 |54 |55 or in five bit field 1-5
+|16 or in 16 bit field
+|26 or in 26 bit field
+|s10 or in a 10 bit field with the at bit 11 with the halves swaped as for mfspr
+|rc set the rc bit
+
+_5-5-16 assemble an instruction with two five bit fields and a 16 bit field
+_l5-5-16 assemble an instruction with two five bit fields and a 16 bit field (first fields are swapped as in logical instructions)
+_5-5-5 assemble an instruction with three five bit fields
+_l5-5-5 assemble an instruction with three five bit fields (first fields are swapped as in logical instructions)
+_5-s10 assemble an instruction with a five bit fields and a swapped 10 bit field
+_5-5 assemble an instruction with two five bit fields

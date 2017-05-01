@@ -1,0 +1,8 @@
+: rnd-buf [ create term-width allot-0 
+: rnd-clear rnd-buf w>a [ term-width 4/up ] lit for 0 +! next ; 
+: rnd-, rnd-buf + >a b@a 1+ b!a ; 
+: rnd-stats [ term-width term-height * 2 / ] lit for term-width random rnd-, next ; 
+: sp/* <if $2a emit ; then sp ; 
+: rnd-stats-row rnd-buf b>a term-width for dup b+@ sp/* next drop ; 
+: rnd-print-stats term-origin term-height 1- dup for 1- dup rnd-stats-row next drop ; 
+: rnd-test rnd-clear rnd-stats rnd-print-stats key $51 =; rnd-test ; [ rnd-test 

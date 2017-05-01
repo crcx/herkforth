@@ -1,0 +1,3 @@
+: term-dimentions [ r3 0 _li r4 $40087468 _liw r5 r-here _mr r0 54 _li _sc ] here h@ here 2+ h@ ; [ term-dimentions ' term-width 
+0 drop ' term-height 
+

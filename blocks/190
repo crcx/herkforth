@@ -1,0 +1,12 @@
+: ,init-stacks elf-load-addr mem-size + r-stack _rlit32 elf-load-addr mem-size 2 kb - + r-rstack _rlit32 ; 
+: ,init-rdict bs-dict-addr @ bs-fix-addr dup r-dict _rlit32 dict-len 32 * + r-dict-end _rlit32 ; 
+: ,init-rsrc bs-src-addr @ bs-fix-addr dup r-src _rlit32 ; 
+: ,init-here here 28 + bs-fix-addr dup r-here _rlit32 r-flushed _rlit32 ; 
+: dicti->dicte 32 * dict-start + ; 
+: bs-shadow-block block w>a 256 for +@ w, next ; 
+: bs-sb-src block dup h>a sb->len for h+@ dup word-used! h, next ; 
+: bs-sb-header block sb->len 512 swap- for h+@ h, next ; 
+: bs-src-block dup bs-sb-src bs-sb-header ; 
+: bs-src-pad 8 kb allot-0 ; 
+: -bs-src 0 num-blocks @ 2 / for dup bs-src-block 1+ dup bs-shadow-block 1+ next drop ; 
+: bs-src here bs-src-addr ! dict-used-init -bs-src bs-src-pad ; 

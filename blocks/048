@@ -1,0 +1,1 @@
+align32 here bs-addr ! $7f454c46 w, $1020100 w, 0 w, 0 w, $20014 w, 1 w, here bs-entry ! 0 w, $34 w, 0 w, 0 w, $340020 w, $10028 w, 0 w, 1 w, 0 w, elf-load-addr w, elf-load-addr w, here bs-file-size ! 0 w, mem-size w, 7 w, $10000 w, 

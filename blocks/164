@@ -1,0 +1,18 @@
+: ,1+ tos-tos 1 _addi ; 
+: 1+ 1+ ; 
+: ,2+ tos-tos 2 _addi ; 
+: 2+ 2+ ; 
+: ,2* tos-tos 2 _mulli ; 
+: 2* 2* ; 
+: ,4+ tos-tos 4 _addi ; 
+: 4+ 4+ ; 
+: ,4* tos-tos 4 _mulli ; 
+: 4* 4* ; 
+: ,1- tos-tos -1 _addi ; 
+: 1- 1- ; 
+: ,2- tos-tos -2 _addi ; 
+: 2- 2- ; 
+: ,4- tos-tos -4 _addi ; 
+: 4- 4- ; 
+: ,negate tos-tos -1 _mulli ; 
+: negate negate ; 

@@ -1,0 +1,19 @@
+variable ' t-color 
+: hi4-8 [ tos-tos 28 28 31 _rlwinm ] ; 
+: low4 [ tos-tos 0 28 31 _rlwinm ] ; 
+: esc $1b esc-emit $5b esc-emit ; 
+: ?bg hi4-8 t-color @ hi4-8 =if 0 ; then 4 esc-1. t-color @ hi4-8 esc-1. 1 ; 
+: ?fg swap low4 t-color @ low4 =if drop ; then if $3b esc-emit then 3 esc-1. t-color @ low4 esc-1. ; 
+: -term-color t-color @ swap t-color ! esc dup ?bg ?fg $6d esc-emit ; 
+: term-color dup t-color @ =if drop ; then -term-color ; 
+: term-moveto dup term-y ! over term-x ! esc 1+ esc-.. $3b esc-emit 1+ esc-.. $48 esc-emit ; 
+: term-origin 0 0 term-moveto ; 
+: clear-screen 7 term-color esc $48 esc-emit esc 2 esc-1. $4a esc-emit term-origin ; 
+: esc-clear esc $4b esc-emit ; 
+: cr-emit elf-load-addr $200000 =if $d -emit then $a -emit 0 term-x ! term-y++ ; 
+: cr t-color @ dup low4 term-color esc-clear cr-emit term-color ; 
+: ?cr term-x @ 0=; cr ; 
+: clear-line 7 term-color esc-clear ; 
+: clear-lines 7 term-color for cr next ; 
+: ?clear-lines dup 0 >if clear-lines ; then drop ; 
+: clear-to term-y @ - ?clear-lines ; 

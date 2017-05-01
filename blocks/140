@@ -1,0 +1,11 @@
+132 load 134 load 136 load 138 load chosen-str of-finddevice ' of-chosen 
+here 0 w, ' of-tmp 
+here 0 w, ' of-key-tmp 
+of-chosen stdin-str of-tmp 4 of-getprop drop of-tmp @ ' stdin 
+of-chosen stdout-str of-tmp 4 of-getprop drop of-tmp @ ' stdout 
+stdout emit-fd ! 
+: write swap >r swap r> of-write drop ; 
+: output-char of-key-tmp b! stdout of-key-tmp 1 of-write drop ; 
+: qw->dv ; $7f and qw->dv-t + b@ ; 
+: key stdin of-key-tmp 1 of-read if of-key-tmp b@ dup if qw->dv ; then drop then key ; 
+: term-restore ; 

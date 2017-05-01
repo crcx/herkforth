@@ -1,0 +1,13 @@
+: bs-dict-pad 50 32 * allot-0 ; 
+: bs-dict-blank drop 0 w, 0 w, 0 w, 0 w, 0 w, 0 w, 0 w, 0 w, ; 
+: ?bs-var flags-var <>; bs-dict-move @ + ; 
+: -bs-cfa dup 0if 2drop 0 ; then ?bs-var ; 
+: bs-cfa dup dict->cfa swap dict->flags -bs-cfa ; 
+: bs-dict-entry dicti->dicte dup >a bs-cfa w, 7 for +@ w, next ; 
+: ?bs-dict-entry dup dict-used@ 0if bs-dict-blank ; then bs-dict-entry ; 
+: bs-dict-here align32 here bs-dict-addr ! dict-start here - bs-dict->old ! here bs-fix-addr dict-start - bs-dict-move ! ; 
+: bs-dict bs-dict-here 0 dict-len for dup ?bs-dict-entry 1+ next drop bs-dict-pad ; 
+: bs-fix-data-cfa here 8 + bs-fix-addr swap dict-cfa! ; 
+: bs-1-data dup dict->cfa swap bs-fix-data-cfa dup 8 - w>a count 4/up 2+ for +@ w, next ; 
+: ?bs-1-data dup dict->flags flags-data <>if drop ; then bs-1-data ; 
+: bs-data bs-dict-addr @ dict-len for dup ?bs-1-data 32 + next drop ; 

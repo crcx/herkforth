@@ -1,0 +1,5 @@
+: of-finddevice 1 1 finddevice-str of-call ; 
+: of-getprop 1 4 getprop-str of-call ; 
+: of-write 1 3 write-str of-call ; 
+: of-read 1 3 read-str of-call ; 
+: bye 0 0 exit-str of-call ; 

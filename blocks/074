@@ -1,0 +1,13 @@
+variable ' color 
+variable ' ed-len 
+: color+ color @ + color ! ; 
+: execute [ 3 r-tos 2 26 29 _rlwinm ] color-table [ tos-tos 3 _add ] jump ; 
+: token-insert cb-size cursor-pos @ 1+ >if cursor-addr 2+ cb-size cursor-pos @ - 1- cursor-addr 4+ h-+move then cb-size++ cursor-pos @ 1+ cursor-pos ! cursor-addr h! ; 
+: d,c->token swap dict-start - 2 / | ; 
+: ed-new-token d,c->token token-insert ; 
+: ?constant dup 4+ @ $20000000 and 0=; color @ 1 >; color @ 12 + color ! ; 
+: ?colormod+ dup 3 >; over 5 + b@ + ; 
+: ed-new-word color @ ?colormod+ ed-new-token ; 
+: ,dict++ r-dict-end 32 _r+ ; 
+: ed-?? dict-new-str ed-len @ type 63 emit 63 emit sp ; 
+: dict-add-num dict-new ! flags-number dict-new-flags ! dict-new dict++ ed-new-word ; 

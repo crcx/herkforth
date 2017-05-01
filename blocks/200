@@ -1,0 +1,6 @@
+: data-append-b dup dup dict->cfa count 1+ data-resize dict->cfa data-end 1- b! ; 
+: append-string key dup $a =if 2drop ; then dup emit over data-append-b append-string ; 
+: -edit-string dup 0 data-resize append-string ; 
+: edit-string cursor-dict -edit-string ; 
+: test-edstr ` tsts ] lit -edit-string cr ` tsts ] lit dict->cfa c%type ; 
+: hello s-hello ctype ; 

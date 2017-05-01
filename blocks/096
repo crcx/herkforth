@@ -1,0 +1,17 @@
+: ed-delete-end cb-addr 1022 + dup h@ 1- swap h! ?cursor-prev ; 
+: ed-delete-mid cursor-addr 2+ cb-size cursor-pos @ - 1- cursor-addr h--move ed-delete-end ; 
+: ed-del-push-cur cursor-token ed-del-push ; 
+: -ed-delete cb-size 2 <; ed-del-push-cur cb-size cursor-pos @ 1+ =if ed-delete-end ; then ed-delete-mid ; 
+: ed-del-word ed-len @ 0if -ed-delete then ed-init ; 
+: ed-del-char ed-len @ 0; 1- 0 over dict-new-str + b! ed-len ! ed-input-line ; 
+: ed-undelete ?ed-del-pop 0=; token-insert ed-init ; 
+: ed-exec cursor-token dup emit-word sp sp sp execute cr ed-init ?cursor-next ; 
+: err $4552524f emit4 $523a20 emit3 ; 
+: err-not-compld err $6e6f7420 emit4 $636f6d70 emit4 $696c6564 emit4 ; 
+: ?err-not-compld if; err-not-compld ; 
+: dict-ptr-exec dup 4+ @ if @ ; then @ dup ?err-not-compld 0; jump ; 
+: -ed-ret ed-len @ 0=; ?ed-str->num if; dict-new-str ?find if dict-ptr-exec ; then ed-?? ; 
+: ed-ret sp sp sp -ed-ret cr ed-init ; 
+: ?ed-ret ed-len @ 0=; ed-ret ; 
+: ed-exec-cb sp sp cur-block @ load cr ed-init ; 
+: ed-redraw clear-screen ed-display ; 

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>herkforth dictionary format</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+<p>These pages were pulled from <a href="http://herkamire.com/jason/herkforth">the wiki</a> (on Thu Nov 11 16:47:34 EST 2004
+.) Go to <a href="http://herkamire.com/jason/herkforth_dictionary">http://herkamire.com/jason/herkforth_dictionary</a> for the most recent version of this page, and/or to submit additions/corrections.</p>
+    
+
+    <h2>herkforth dictionary format</h2>
+
+<p>The herkforth dictionary format will change. eg color_mod will be removed, and
+at some point I won't use a struct anymore. This data will be stored in
+seperate arrays.</p>
+
+<p>Dictionary entries are 32 bytes long. They have the following fields:</p>
+
+<ul>
+<li>data (4 bytes) use depends on word color (see below)</li>
+<li>flags (4 bytes) (see below)</li>
+<li>variable value (4 bytes) (unused for non-variables)</li>
+<li>source (4 bytes) Where this word is defined (block number (first two bytes) and
+which token</li>
+<li>name (16 bytes) string. up to 16 chars padded (if nessesary) on the right with
+null bytes.</li>
+</ul>
+
+<p>data element has the following meanings:</p>
+
+<ul>
+<li>For colors 0, 1 and 7: pointer to the compiled code for the word (CFA)</li>
+<li>For colors 2, 3 and 6: number (to be compiled (LIT) or put on the stack)</li>
+<li>For variables this is a pointer to another field in the dictionary where the
+variable's value is</li>
+</ul>
+
+<p>I am about to change the flags element. It will be a simple type field (possibly stored in a seperate arary.) The types will be:</p>
+
+<ul>
+<li>0: unknown</li>
+<li>1: comment</li>
+<li>2: word</li>
+<li>3: number/lit</li>
+<li>4: variable</li>
+<li>5: data</li>
+</ul>
+
+<p>flags element starts with a byte with the following bit flags (starting with
+the most significant)</p>
+
+<ul>
+<li>true if this is a number, named constant or variable</li>
+<li>number</li>
+<li>constant</li>
+<li>variable</li>
+<li>data (eg string)</li>
+</ul>
+
+<p>The seccond byte in the flags element is the color_mod. The editor remembers
+the color you are typing in (0: yellow, 1: green) add to that the color_mod
+from the dictionary entry of the word just typed to get the correct color bits
+for the new source token.</p>
+
+<h3>See Also:</h3>
+
+<p><a href="herkforth_colors.html">herkforth colors</a></p>
+
+<p><a href="herkforth_docs.html">herkforth docs</a></p>
+
+<p><a href="herkforth.html">herkforth</a>
+</p>
+
+
+  </body>
+</html>

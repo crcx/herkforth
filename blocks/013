@@ -1,0 +1,4 @@
+Assembler: branches, shifts, clears
+
+_bl takes relative IP move
+_rbl takes absolute address (and compiles a relative branch to it)

@@ -1,0 +1,16 @@
+: ?bg-cur over cursor-addr <>; 0 ew-fg? ! ; 
+: ?src-type 1 ew-fg? ! ?for dup h@ ?bg-cur emit-word 2+ ?next drop ; 
+: cb-type cb-addr cb-size ?src-type ; 
+: csb-addr cb-addr 1024 + ; 
+: -type-line b+@ dup $a =; emit -type-line ; 
+: type-line b>a -type-line drop ; 
+: csb-title-type csb-addr type-line ; 
+: cursor-dict cursor-token token->dict ; 
+: cursor-cfa cursor-dict dict->cfa ; 
+: cursor-dict-str cursor-dict 16 + ; 
+: dict-src@ [ tos-tos 12 _lwz ] ; 
+: dict-src! 12 + ! ; 
+: star $2a emit ; 
+: stars for star next ; 
+: hr 7 term-color term-width stars cr ; 
+: src->addr dup hi16 block swap low16 2 * + ; 

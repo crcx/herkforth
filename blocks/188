@@ -1,0 +1,14 @@
+$2028f ' aa 
+$fffd7852 ' bb 
+$19c29 ' cc 
+$ffffab85 ' dd 
+here $ffff w, ' y 
+here $ffff w, ' x 
+$111 ' scale 
+load-graphics load-sin 
+: att-plot x @ scale / screen-w/2 + y @ scale / screen-h/2 + x,y->addr -1 swap ! ; 
+: att-next-x y @ aa s* sin x @ bb s* cos - ; 
+: att-next-y x @ cc s* sin y @ dd s* cos - ; 
+: att-next att-next-x att-next-y y ! x ! ; 
+: att-test 50 for att-next x @ scale / . y @ scale / . cr next pause ; 
+: attractor fb-clear 1000000 for att-plot att-next next 8000 . pause ; 

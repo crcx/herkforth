@@ -1,0 +1,8 @@
+: wnf-table [ create ] ed-define-var ed-define-const ed-define new-string [ 4 fix-table 
+: clear-new-dict dict-new w>a 0 +! 0 +! 0 +! 0 +! ; 
+: ed-new-define color @ 5 - 4 * wnf-table + jump ; 
+: word-not-found clear-new-dict color @ 5 <if ?ed-new-num ; then ed-new-define ; 
+: ismatch w>a +@ +4@b =if +@ +8@b =if +@ +12@b =if +@ +16@b =if 1 ; then then then then 0 ; 
+: ?find dup w>b dict-new dict-start - 32 / for 32 - dup ismatch if 16 - unloop 1 ; then next drop 0 ; 
+: ?ed-find dict-new-str ?find ; 
+: ed-find ?ed-find if ed-new-word ; then word-not-found ; 

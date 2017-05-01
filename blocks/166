@@ -1,0 +1,11 @@
+102 load load-graphics 
+: mand-dist mand-zi @ ssquared mand-zr @ ssquared + ; 
+: next-zi mand-zi @ mand-zr @ s* 2* mand-ci @ + ; 
+: next-zr mand-zr @ ssquared mand-zi @ ssquared - mand-cr @ + ; 
+: mand-iter next-zi next-zr mand-zr ! mand-zi ! ; 
+: mand-iters 100 for mand-iter mand-dist $40000 >if 101 i - unloop ; then next 0 ; 
+: mand-init mand-cr ! mand-ci ! 0 mand-zi ! 0 mand-zr ! ; 
+: mand-pixel mand-init mand-iters mand-color ; 
+: mand-row $fffe0000 screen-width for 2dup mand-pixel +! $c8 + next drop ; 
+: -mand fb w>a $fffea000 screen-height for mand-row $c8 + next drop ; 
+: mand -mand pause ed-redraw ; [ mand 

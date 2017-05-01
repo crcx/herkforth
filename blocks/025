@@ -1,0 +1,3 @@
+loops and misc. control constructs
+
+aflush    ( addr -- )  flush cash block containing addr

@@ -1,0 +1,3 @@
+: make-branch $12 opcode |26 a ; 
+: -is over - make-branch over ! aflush ; 
+: is dict->cfa swap dict->cfa swap -is ; 

@@ -1,0 +1,1 @@
+: dict-clear 32 * dict-start + w>a 8 for 0 +! next ; 

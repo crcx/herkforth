@@ -1,0 +1,7 @@
+Misc stuff (tables, etc.)
+
++move ( addr count dest -- ) I think
+
+fixtable: to create a table of branches, compile calls, then call this to turn the bl instructions to b instructions.
+fix2table: ditto for tables with values as every other cell.
+t+@: increment table fetch. used for table searching.

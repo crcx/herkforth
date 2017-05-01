@@ -1,0 +1,22 @@
+variable ' html-in-a? 
+: html-to-file s-html-filename file-open emit-fd ! ; 
+: html-restore emit-fd @ file-close stdout emit-fd ! ; 
+: html-class s-class ctype token->dcolor $61 + emit s-qa-close ctype ; 
+: html-anchor s-a-name ctype dup tok-print-dname char-quote emit html-class ; 
+: html-link s-a-href ctype dup tok-print-dname char-quote emit html-class ; 
+: ?html-a -1 html-in-a? ! dup word-color 4 >if html-anchor ; then html-link ; 
+: html-/a 0 html-in-a? ! s-close-a ctype ; 
+: ?html-/a html-in-a? @ 0=; html-/a ; 
+: <br> s-<br> ctype ; 
+: <hr> s-<hr> ctype ; 
+: ?html-cr-before word-color 7 <>; <br> ; 
+: ?html-cr-after word-color dup 6 =if drop <br> ; then 5 <>; <br> ; 
+: ?html-before dup ?html-cr-before ?html-a ; 
+: ?html-after ?html-/a sp ?html-cr-after ; 
+: html-emit dup $3c =if drop s-andlt; ctype ; then emit ; 
+: html-type for dup b@ html-emit 1+ next drop ; 
+: html-ew-name token->dname html-type ; 
+: html-word dup ?html-before dup html-ew-name ?html-after ; 
+: html-title 1024 + type-line <br> ; 
+: html-block emit-buf-start <hr> dup . block dup html-title dup sb->len for dup h@ html-word 2+ next drop emit-buf-flush ; 
+: -html html-to-file s-html-header ctype 0 num-blocks @ 2 / for dup html-block 2+ next drop s-html-footer ctype html-restore ; 

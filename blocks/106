@@ -1,0 +1,19 @@
+here $6f75742f w, 0 w, ' blocks-fname 
+here dict-count allot align ' dict-used 
+variable ' eb-fd 
+: dict-used! dict-used + 1 swap b! ; 
+: word-used! word-data dict-used! ; 
+: dict-used@ dict-used + b@ ; 
+: dict-used-init dict-used b>a dict-count for 0 b+! next ; 
+: print-dict-used dict-used dict-count %type pause ; 
+: check-dict-use swap h>a for h+@ word-used! next ; 
+: test-cdu 106 block dup sb->len check-dict-use print-dict-used ; 
+: eb-open [ blocks-fname r3 _rlit32 r4 $241 _li r5 $1a4 _li r0 5 _li _sc r3 _pushreg ] eb-fd ! ; 
+: eb-write-block 100 ew-last-color ! block dup sb->len 2dup check-dict-use ?src-type cr ; 
+: eb-write emit-buf-start 1 ew-ascii? ! eb-write-block 0 ew-ascii? ! emit-buf-end eb-fd @ write ; 
+: eb-close eb-fd @ file-close ; 
+: eb-digit dup 10 umod $30 + b!a 1 a- 10 / ; 
+: eb-set-fname blocks-fname 6 + >a eb-digit eb-digit eb-digit drop ; 
+: eb-open-file eb-set-fname eb-open ; 
+: export-block dup eb-open-file eb-write eb-close ; 
+: export-source dict-used-init 0 num-blocks @ 2 / for dup export-block 2+ next drop ; 

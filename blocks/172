@@ -1,0 +1,14 @@
+here mist-t-size allot-0 ' mist-t 
+here 12 - ' mist-t-end 
+variable ' mist-vx 
+variable ' mist-vy 
+variable ' mist-vz 
+1900 ' focal-length 
+350 ' eye-sep 
+screen-w/2 eye-sep 2 / - ' lex 
+screen-w/2 eye-sep 2 / + ' rex 
+screen-h/2 ' ey 
+variable ' ana-y 
+variable ' ana-x 
+variable ' ana-z 
+load-graphics 

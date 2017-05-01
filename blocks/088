@@ -1,0 +1,9 @@
+: ++100mod >a @a 4+ 100 umod !a ; 
+: --100mod >a @a 96 + 100 umod !a ; 
+: ?edback-start++ ed-back-cur @ ed-back-start @ <>; ed-back-start ++100mod ; 
+: ed-back-addr ed-back-cur @ ed-back + ; 
+: ed-back! ed-back-addr ! ; 
+: ed-back@ ed-back-addr @ ; 
+: ed-back-push ed-back! ed-back-cur ++100mod ?edback-start++ ; 
+: ed-back-pop ed-back-cur --100mod ed-back@ ; 
+: ?ed-back-pop ed-back-cur @ ed-back-start @ =if 0 ; then ed-back-pop 1 ; 

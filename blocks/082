@@ -1,0 +1,7 @@
+: ed-white+div [ term-height dup 10 / - 4 - ] lit clear-to hr ; 
+: ed-display emit-buf-start ed-header cb-type ed-white+div ed-show-def ed-input-line emit-buf-flush ; 
+: -display-color token->dict dup 16 + b@ $2c =if 17 + b@ if 1 ; then 0 ; then drop 0 ; 
+: display-color dup word-color 0 =if -display-color then word-color ; 
+: ed-nextcolor cursor-token display-color 2 umod color ! ; 
+: 4clear w>a 0 +! 0 +! 0 +! 0 +! ; 
+: ed-init 0 ed-len ! dict-new-str 4clear ed-nextcolor ed-display ; 

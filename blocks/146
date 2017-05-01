@@ -1,0 +1,3 @@
+: pause key drop ; 
+: key. key dup . h. ; 
+: 4key. key. key. key. key. ; 

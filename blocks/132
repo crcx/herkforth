@@ -1,0 +1,9 @@
+: get-r5 [ r5 _pushreg ] ; [ get-r5 ' of-entry 
+here 32 allot ' of-args 
+here $2f63686f w, $73656e00 w, ' chosen-str 
+here $73746469 w, $6e000000 w, ' stdin-str 
+here $7374646f w, $75740000 w, ' stdout-str 
+here $66696e64 w, $64657669 w, $63650000 w, ' finddevice-str 
+here $67657470 w, $726f7000 w, ' getprop-str 
+here $6f70656e w, 0 w, ' open-str 
+

@@ -1,0 +1,2 @@
+here dict-count 4+ allot-0 ' loaded?-t 
+: ?load dup loaded?-t + b@ if drop ; then 1 over loaded?-t + b! load ; 

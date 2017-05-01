@@ -1,0 +1,5 @@
+here stdout w, ' emit-fd 
+: ,src-cur r-src-cur _pushreg ; 
+: ,data-start r-data _pushreg ; 
+: ,dict-start r-dict _pushreg ; 
+: dict-start ,dict-start ; 

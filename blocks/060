@@ -1,0 +1,2 @@
+: h--move h>a for dup h@ h+! 2+ next drop ; 
+: h-+move over 2 * + >a tuck 2 * + swap for 2- dup h@ h-! next drop ; 

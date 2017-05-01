@@ -1,0 +1,5 @@
+: fn-end b+@ 0 =if ; then fn-end ; 
+: -string++ b-@ 1+ dup b!a $3a <; $30 b!a -string++ ; 
+: new-name [ r-a 3 _mr ] fn-end -string++ ; 
+: open-elf [ 3 1 4 _lwz ] new-name [ 4 $241 _li 5 493 _li 0 5 _li _sc 3 _pushreg ] ; 
+: bs-write-file bs-addr @ bs-file-size @ @ open-elf dup >r write r> file-close ; 

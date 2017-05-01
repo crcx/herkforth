@@ -1,0 +1,3 @@
+Fetch terminal dimentions
+
+ioctl to get terminal dimentions from linux. see http://herkamire.com/jason/terminal_dimentions

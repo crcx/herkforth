@@ -1,0 +1,7 @@
+: of-args-end 4* of-args + 12 + ; 
+: of-set-stack of-args 4+ @ dup of-args-end >a ?for -! ?next ; 
+: -of-set-args of-args w>a +! +! +! ; 
+: of-set-args -of-set-args of-set-stack ; 
+: of-get-args of-args 8 + @ of-args 4+ @ over + of-args-end >a ?for -@ ?next ; 
+: -of-call [ r3 of-args _liw ] of-entry jump ; 
+: of-call save-a of-set-args -of-call of-get-args restore-a ; 

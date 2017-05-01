@@ -1,0 +1,12 @@
+: termios [ create 64 allot 
+: fix-termios $487 termios 6 + h! ; 
+: save-c_lflags termios 6 + h@ termios 60 + h! ; 
+: restore-termios termios 60 + h@ termios 6 + h! ; 
+: tcgetattr termios $40147417 [ 3 0 _li 4 r-tos _mr ] drop [ 5 r-tos _mr 0 54 _li _sc ] drop save-c_lflags ; 
+: tcsetattr termios $80147418 [ 3 0 _li 4 r-tos _mr ] drop [ 5 r-tos _mr 6 0 _li 0 54 _li _sc ] drop ; 
+: fix-term tcgetattr fix-termios tcsetattr ; 
+: term-restore 7 term-color restore-termios tcsetattr ; 
+: print-termios termios w>a 15 for +@ h. next ; 
+: exit term-restore [ 3 r-tos _mr 0 1 _li _sc 
+: bye 0 exit ; [ fix-term 
+: key emit-buf [ 0 3 _li 3 0 _li 4 r-tos _mr 5 1 _li _sc 3 _pushreg ] if b@ ; then bye 

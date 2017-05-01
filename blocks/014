@@ -1,0 +1,14 @@
+: >> [ _niptmp r-tos r-tmp r-tos _srw ] ; 
+: << [ _niptmp r-tos r-tmp r-tos _slw ] ; 
+: ,kb tos-tos 1024 _mulli ; 
+: kb kb ; 
+: | [ _niptmp tos-tos r-tmp _or ] ; 
+: + [ _niptmp tos-tos r-tmp _add ] ; 
+: / [ _niptmp r-tos r-tmp r-tos _divw ] ; 
+: u/ [ _niptmp r-tos r-tmp r-tos _divwu ] ; 
+: * [ _niptmp r-tos r-tmp r-tos _mullw ] ; 
+: *h [ _niptmp r-tos r-tmp r-tos _mulhw ] ; 
+: *hu [ _niptmp r-tos r-tmp r-tos _mulhwu ] ; 
+: s* [ _niptmp r-tmp2 r-tmp r-tos _mulhw tos-tos r-tmp _mullw tos-tos 16 16 31 _rlwinm r-tos r-tmp2 16 0 15 _rlwimi ] ; 
+: and [ _niptmp r-tos r-tmp r-tos _and ] ; 
+: umod 2dup u/ * - ; 

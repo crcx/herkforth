@@ -1,0 +1,3 @@
+number parsing
+
+?str->num  ( count -- number true | false ) pass address in A register, and count on stack. returns a flag on top of the stack. if true (number successfully converted) the number is under that on the stack.

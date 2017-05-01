@@ -1,0 +1,6 @@
+: ,asm [ r-here -8 _r+ ] ; 
+: ,2= 0 r-tos 2 _cmpi ; 
+: ,2<=blr ,2= _bnglr ; 
+: fib asm 1- 2<=blr 
+: -fib dup fib swap 1- fib + ; 
+: fib-test 40 fib . ; 

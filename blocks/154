@@ -1,0 +1,9 @@
+: ,hi16 tos-tos 16 16 31 _rlwinm ; 
+: ,to-hi16 tos-tos 16 0 15 _rlwinm ; 
+: ,hi17 tos-tos 17 15 31 _rlwinm ; 
+: ,low16 tos-tos 0 16 31 _rlwinm ; 
+: ,hi8 tos-tos 8 24 31 _rlwinm ; 
+: ,low10 tos-tos 0 22 31 _rlwinm ; 
+: ,2nd-8 tos-tos 16 24 31 _rlwinm ; 
+: ,3rd-8 tos-tos 24 24 31 _rlwinm ; 
+: ,even tos-tos 1 _clrrwi ; 

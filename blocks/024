@@ -1,0 +1,12 @@
+: _dcbf 86 31 _5-5 ; 
+: _sync $7c0004ac w, ; 
+: _icbi 982 31 _5-5 ; 
+: _isync $4c00012c w, ; 
+: aflush [ tos-tos 5 _clrrwi 0 r-tos _dcbf _sync 0 r-tos _icbi _sync _isync ] drop ; 
+: ,then here over - over 2+ h! aflush ; 
+: ,for _ctrpush r-tos _mtctr ,drop here ; 
+: ,next here - _bdnz _ctrpop ; 
+: ,?for 3 r-tos _mr ,if ,dup r-tos 3 _mr ,for ; 
+: ,?next ,next ,then ; 
+: ,unloop _ctrpop ; 
+: ,i ,dup r-tos _mfctr ; 

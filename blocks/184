@@ -1,0 +1,11 @@
+: ,hi22>a r-a r-tos 23 9 30 _rlwinm ,drop ; 
+: sin-t@ dup low10 >r hi22>a sin-t a+ h@a h+@ over - r> * $400 / + ; 
+: >0..2pi dup 0 <=if 2pi + >0..2pi ; then 2pi umod ; 
+: sin1 sin-t@ ; 
+: sin2 pi swap- sin-t@ ; 
+: sin3 sin1 negate ; 
+: sin4 sin2 negate ; 
+: sin >0..2pi dup pi <if dup pi/2 <if sin1 ; then sin2 ; then pi - dup pi/2 <if sin3 ; then sin4 ; 
+: cos pi/2 + sin ; 
+: sintest 0 100000 for dup cos 1312 / 50 + stars cr $40a0 + next drop pause ; 
+: sintest2 0 0 2pi 4* for over sin tuck - dup 1 >if drop .s pause unloop ; then -1 <if .s pause unloop ; then swap 1+ swap next 2drop ; 
